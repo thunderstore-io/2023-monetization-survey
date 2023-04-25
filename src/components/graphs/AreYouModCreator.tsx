@@ -11,7 +11,7 @@ import {
 } from "recharts";
 import { useDataContext } from "@/components/DataContext";
 
-export const ExampleChart: React.FC = () => {
+export function AreYouModCreatorChart() {
   const context = useDataContext();
   const data = useMemo(() => {
     const result: { [key: string]: { count: number } } = {};
@@ -27,13 +27,15 @@ export const ExampleChart: React.FC = () => {
   }, [context.rows]);
 
   return (
-    <ResponsiveContainer width={400} height={200}>
-      <BarChart data={data}>
-        <XAxis dataKey={"group"} />
-        <YAxis />
-        <Tooltip />
-        <Bar dataKey={"count"} />
-      </BarChart>
-    </ResponsiveContainer>
+    <div>
+      <ResponsiveContainer width={500} height={200}>
+        <BarChart data={data}>
+          <XAxis dataKey={"group"} />
+          <YAxis />
+          <Tooltip />
+          <Bar dataKey={"count"} />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
   );
-};
+}
