@@ -1,31 +1,31 @@
 import React, { PropsWithChildren } from "react";
-import { IDataEntry } from "@/data/types";
+import { AgeGroup, IDataEntry } from "@/data/types";
 import { loadData } from "@/data/load";
 
-export enum AgeGroupFilter {
-  ALL,
-}
-
 export enum IsModderFilter {
-  ALL,
-  YES,
-  NO,
+  ALL = "ALL",
+  YES = "YES",
+  NO = "NO",
 }
 
 export type IDataContext = {
   rows: IDataEntry[];
 
-  setAgeGroupFilter: (val: AgeGroupFilter) => void;
-  ageGroupFilter: AgeGroupFilter;
+  setAgeGroupFilter: (val: AgeGroup[]) => void;
+  ageGroupFilter: AgeGroup[];
 
   setIsModderFilter: (val: IsModderFilter) => void;
   isModderFilter: IsModderFilter;
 };
 
 export const DataContextProvider: React.FC<PropsWithChildren> = (props) => {
-  const [ageGroupFilter, setAgeGroupFilter] = React.useState<AgeGroupFilter>(
-    AgeGroupFilter.ALL
-  );
+  const [ageGroupFilter, setAgeGroupFilter] = React.useState<AgeGroup[]>([
+    AgeGroup._13_18,
+    AgeGroup._19_25,
+    AgeGroup._26_32,
+    AgeGroup._33,
+    AgeGroup.UNDISCLOSED,
+  ]);
   const [isModderFilter, setIsModderFilter] = React.useState<IsModderFilter>(
     IsModderFilter.ALL
   );
@@ -38,7 +38,7 @@ export const DataContextProvider: React.FC<PropsWithChildren> = (props) => {
         (isModderFilter == IsModderFilter.ALL ||
           (x.isModder && isModderFilter == IsModderFilter.YES) ||
           (!x.isModder && isModderFilter == IsModderFilter.NO)) &&
-        (ageGroupFilter == AgeGroupFilter.ALL || x.ageGroup == ageGroupFilter)
+        ageGroupFilter.includes(x.ageGroup)
       );
     });
   }, [rawData, ageGroupFilter, isModderFilter]);
@@ -61,7 +61,13 @@ export const DataContextProvider: React.FC<PropsWithChildren> = (props) => {
 export const DataContext = React.createContext<IDataContext>({
   rows: [],
   setAgeGroupFilter: () => undefined,
-  ageGroupFilter: AgeGroupFilter.ALL,
+  ageGroupFilter: [
+    AgeGroup._13_18,
+    AgeGroup._19_25,
+    AgeGroup._26_32,
+    AgeGroup._33,
+    AgeGroup.UNDISCLOSED,
+  ],
   setIsModderFilter: () => undefined,
   isModderFilter: IsModderFilter.ALL,
 });
