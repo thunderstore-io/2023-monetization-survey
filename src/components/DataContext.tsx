@@ -1,110 +1,61 @@
 import React, { PropsWithChildren } from "react";
+import { IDataEntry } from "@/data/types";
+import { loadData } from "@/data/load";
 
-type CreatorSupport = string;
-type PaymentSize = string;
-type ModdingProfessionReply = string;
-type MonetizationModels = string;
-type SubscriptionFeatures = string;
-type AgeGroup = string;
+export enum AgeGroupFilter {
+  ALL,
+}
 
-export type IDataEntry = {
-  /**
-   * Are you a mod creator?
-   */
-  isModder: boolean;
-
-  /**
-   * Which platforms do you use as a mod creator?
-   */
-  platformsUsedAsModder: string[];
-
-  /**
-   * Why do you use ___ as a mod creator?
-   */
-  platformsUseReasonAsModder: string;
-
-  /**
-   * Which platforms do you use as an end user?
-   */
-  platformsUsedAsUser: string[];
-
-  /**
-   * Why do you use ___ as an end user?
-   */
-  platformsUseReasonAsUser: string;
-
-  /**
-   * Have you supported mod creators directly?
-   */
-  hasSupportedCreators: CreatorSupport;
-
-  /**
-   * One-off payments: How much have you donated per month on average?
-   */
-  oneOffMonthlyDonationAverage: PaymentSize;
-
-  /**
-   * Recurring payments: How much have you donated per month on average?
-   */
-  recurringMonthlyDonationAverage: PaymentSize;
-
-  /**
-   * How much would you be willing to donate per month?
-   */
-  willingToDonatePerMonth: PaymentSize;
-
-  /**
-   * Reason for choosing no for mod creator support
-   */
-  reasonForNotWillingToDonate: string;
-
-  /**
-   * If it was possible, would you like to create mods as a profession?
-   */
-  interstInModdingProfession: ModdingProfessionReply;
-
-  /**
-   * Which of the following monetization models do you consider acceptable?
-   */
-  acceptableMonetizationModels: MonetizationModels;
-
-  /**
-   * How would you prefer a premium subscription to look like?
-   */
-  subscriptionFeaturesPreferenceRanking: SubscriptionFeatures;
-
-  /**
-   * What would you consider a fair price for a monthly premium subscription?
-   */
-  subscriptionFairPrice: number;
-
-  /**
-   * When you consider purchasing a subscription, what is the main factor you base your decision on?
-   */
-  subscriptionDecisionMainFactor: string;
-
-  /**
-   * If a premium subscription could be used to support mod creators and tool development,
-   * would you consider purchasing one?
-   */
-  subscriptionConsiderationWillingness: boolean;
-
-  /**
-   * One last question! How old are you?
-   */
-  ageGroup: AgeGroup;
-};
+export enum IsModderFilter {
+  ALL,
+  YES,
+  NO,
+}
 
 export type IDataContext = {
   rows: IDataEntry[];
+
+  setAgeGroupFilter: (val: AgeGroupFilter) => void;
+  ageGroupFilter: AgeGroupFilter;
+
+  setIsModderFilter: (val: IsModderFilter) => void;
+  isModderFilter: IsModderFilter;
 };
 
 export const DataContextProvider: React.FC<PropsWithChildren> = (props) => {
+  const [ageGroupFilter, setAgeGroupFilter] = React.useState<AgeGroupFilter>(
+    AgeGroupFilter.ALL
+  );
+  const [isModderFilter, setIsModderFilter] = React.useState<IsModderFilter>(
+    IsModderFilter.ALL
+  );
+  const rawData = React.useMemo<IDataEntry[]>(() => {
+    return loadData(1100);
+  }, []);
+
+  const context: IDataContext = {
+    rows: rawData,
+    setAgeGroupFilter,
+    ageGroupFilter,
+    setIsModderFilter,
+    isModderFilter,
+  };
+
   return (
-    <DataContext.Provider value={{ rows: [] }}>
+    <DataContext.Provider value={context}>
       {props.children}
     </DataContext.Provider>
   );
 };
 
-const DataContext = React.createContext<IDataContext>({ rows: [] });
+export const DataContext = React.createContext<IDataContext>({
+  rows: [],
+  setAgeGroupFilter: () => undefined,
+  ageGroupFilter: AgeGroupFilter.ALL,
+  setIsModderFilter: () => undefined,
+  isModderFilter: IsModderFilter.ALL,
+});
+
+export const useDataContext = (): IDataContext => {
+  return React.useContext(DataContext);
+};
