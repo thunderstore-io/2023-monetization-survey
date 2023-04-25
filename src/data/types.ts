@@ -1,3 +1,5 @@
+import { string } from "prop-types";
+
 export enum ModdingPlatform {
   THUNDERSTORE = "Thunderstore",
   NEXUS = "Nexusmods",
@@ -69,6 +71,11 @@ export enum AgeGroup {
   UNDISCLOSED = "Prefer not to say",
 }
 
+export type DynamicCategory = {
+  id: string;
+  description: string;
+};
+
 export type IDataEntry = {
   /**
    * Are you a mod creator?
@@ -91,6 +98,11 @@ export type IDataEntry = {
   platformsUseReasonAsModder: string;
 
   /**
+   * Post-processed categorization of the {@link platformsUseReasonAsModder} field.
+   */
+  platformsUseReasonAsModderCategory?: DynamicCategory[];
+
+  /**
    * Which platforms do you use as an end user?
    */
   platformsUsedAsUser: ModdingPlatform[];
@@ -104,6 +116,11 @@ export type IDataEntry = {
    * Why do you use ___ as an end user?
    */
   platformsUseReasonAsUser: string;
+
+  /**
+   * Post-processed categorization of the {@link platformsUseReasonAsUser} field.
+   */
+  platformsUseReasonAsUserCategory?: DynamicCategory[];
 
   /**
    * Have you supported mod creators directly?
@@ -136,6 +153,11 @@ export type IDataEntry = {
   reasonForNotWillingToDonateOther?: string;
 
   /**
+   * Post-processed categorization of the {@link reasonForNotWillingToDonateOther} field.
+   */
+  reasonForNotWillingToDonateOtherCategory?: DynamicCategory[];
+
+  /**
    * If it was possible, would you like to create mods as a profession?
    */
   interstInModdingProfession: ModdingProfessionReply;
@@ -144,6 +166,11 @@ export type IDataEntry = {
    * If {@link interstInModdingProfession} was OTHER, this is the message
    */
   interstInModdingProfessionOther?: string;
+
+  /**
+   * Post-processed categorization of the {@link interstInModdingProfessionOther} field.
+   */
+  interstInModdingProfessionOtherCategory?: DynamicCategory[];
 
   /**
    * Which of the following monetization models do you consider acceptable?
@@ -164,6 +191,11 @@ export type IDataEntry = {
    * When you consider purchasing a subscription, what is the main factor you base your decision on?
    */
   subscriptionDecisionMainFactor: string;
+
+  /**
+   * Post-processed categorization of the {@link subscriptionDecisionMainFactor} field.
+   */
+  subscriptionDecisionMainFactorCategory?: DynamicCategory[];
 
   /**
    * If a premium subscription could be used to support mod creators and tool development,

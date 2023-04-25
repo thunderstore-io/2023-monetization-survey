@@ -4,7 +4,6 @@ import React, { useMemo } from "react";
 import {
   Bar,
   BarChart,
-  Line,
   ResponsiveContainer,
   Tooltip,
   XAxis,

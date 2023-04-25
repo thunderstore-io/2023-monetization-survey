@@ -2,6 +2,7 @@ import {
   AgeGroup,
   CreatorSupport,
   DonateUnwillingnessReason,
+  DynamicCategory,
   IDataEntry,
   ModdingPlatform,
   ModdingProfessionReply,
@@ -83,6 +84,25 @@ const AGE_GROUP_OPTIONS = [
   AgeGroup.UNDISCLOSED,
 ];
 
+const DYNAMIC_CATEGORY_OPTIONS: DynamicCategory[] = [
+  { id: faker.lorem.word(), description: faker.lorem.sentence() },
+  { id: faker.lorem.word(), description: faker.lorem.sentence() },
+  { id: faker.lorem.word(), description: faker.lorem.sentence() },
+  { id: faker.lorem.word(), description: faker.lorem.sentence() },
+  { id: faker.lorem.word(), description: faker.lorem.sentence() },
+];
+
+function getDynamicCategories(): DynamicCategory[] | undefined {
+  if (Math.random() < 0.6) return;
+  return _.sampleSize(
+    DYNAMIC_CATEGORY_OPTIONS,
+    faker.datatype.number({
+      min: 0,
+      max: DYNAMIC_CATEGORY_OPTIONS.length,
+    })
+  );
+}
+
 function generateRandomEntry(): IDataEntry {
   return {
     isModder: faker.datatype.boolean(),
@@ -94,6 +114,7 @@ function generateRandomEntry(): IDataEntry {
       })
     ),
     platformsUseReasonAsModder: faker.lorem.sentence(),
+    platformsUseReasonAsModderCategory: getDynamicCategories(),
     platformsUsedAsUser: _.sampleSize(
       PLATFORM_OPTIONS,
       faker.datatype.number({
@@ -102,14 +123,17 @@ function generateRandomEntry(): IDataEntry {
       })
     ),
     platformsUseReasonAsUser: faker.lorem.sentence(),
+    platformsUseReasonAsUserCategory: getDynamicCategories(),
     hasSupportedCreators: _.sample(SUPPORT_OPTIONS)!,
     oneOffMonthlyDonationAverage: _.sample(PAYMENT_SIZE_OPTIONS),
     recurringMonthlyDonationAverage: _.sample(PAYMENT_SIZE_OPTIONS),
     willingToDonatePerMonth: _.sample(PAYMENT_SIZE_OPTIONS),
     reasonForNotWillingToDonate: _.sample(DONATE_UNWILLINGNESS_OPTIONS)!,
     reasonForNotWillingToDonateOther: faker.lorem.sentence(),
+    reasonForNotWillingToDonateOtherCategory: getDynamicCategories(),
     interstInModdingProfession: _.sample(MOD_PROFESSION_OPTIONS)!,
     interstInModdingProfessionOther: faker.lorem.sentence(),
+    interstInModdingProfessionOtherCategory: getDynamicCategories(),
     acceptableMonetizationModels: _.sampleSize(
       MONETIZATION_MODELS,
       faker.datatype.number({
@@ -120,6 +144,7 @@ function generateRandomEntry(): IDataEntry {
     subscriptionFeaturesPreferenceRanking: _.shuffle(SUBSCRIPTION_FEATURES),
     subscriptionFairPrice: faker.datatype.number({ min: 5, max: 50 }),
     subscriptionDecisionMainFactor: faker.lorem.sentence(),
+    subscriptionDecisionMainFactorCategory: getDynamicCategories(),
     subscriptionConsiderationWillingness: faker.datatype.boolean(),
     ageGroup: _.sample(AGE_GROUP_OPTIONS)!,
   };
