@@ -32,9 +32,19 @@ export const DataContextProvider: React.FC<PropsWithChildren> = (props) => {
   const rawData = React.useMemo<IDataEntry[]>(() => {
     return loadData(1100);
   }, []);
+  const filteredData = React.useMemo<IDataEntry[]>(() => {
+    return rawData.filter((x) => {
+      return (
+        (isModderFilter == IsModderFilter.ALL ||
+          (x.isModder && isModderFilter == IsModderFilter.YES) ||
+          (!x.isModder && isModderFilter == IsModderFilter.NO)) &&
+        (ageGroupFilter == AgeGroupFilter.ALL || x.ageGroup == ageGroupFilter)
+      );
+    });
+  }, [rawData, ageGroupFilter, isModderFilter]);
 
   const context: IDataContext = {
-    rows: rawData,
+    rows: filteredData,
     setAgeGroupFilter,
     ageGroupFilter,
     setIsModderFilter,
