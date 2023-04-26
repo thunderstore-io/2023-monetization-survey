@@ -11,14 +11,23 @@ import {
 } from "recharts";
 import { useDataContext } from "@/components/DataContext";
 
-export function AreYouModCreatorChart() {
+interface YesNoChartProps {
+  dataKey: string;
+}
+
+export function YesNoChart(props: YesNoChartProps) {
   const context = useDataContext();
   const data = useMemo(() => {
-    const result: { [key: string]: { count: number } } = {};
+    const result: { [key: string]: { count: number } } = {
+      yes: { count: 0 },
+      no: { count: 0 },
+    };
     for (const entry of context.rows) {
-      const group = result[entry.ageGroup] ?? { count: 0 };
-      group.count += 1;
-      result[entry.ageGroup] = group;
+      if (entry[props.dataKey]) {
+        result["yes"].count += 1;
+      } else {
+        result["no"].count += 1;
+      }
     }
     return Object.keys(result).map((k) => ({
       group: k,

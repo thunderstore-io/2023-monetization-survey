@@ -80,6 +80,7 @@ export function FilterSet() {
           className="SwitchRoot"
           id={`${AgeGroup._13_18}-switch`}
           asChild={true}
+          checked={context.ageGroupFilter.includes(AgeGroup._13_18)}
         >
           <button
             className="SwitchThumb"
@@ -105,6 +106,7 @@ export function FilterSet() {
           className="SwitchRoot"
           id={`${AgeGroup._19_25}-switch`}
           asChild={true}
+          checked={context.ageGroupFilter.includes(AgeGroup._19_25)}
         >
           <button
             className="SwitchThumb"
@@ -130,6 +132,7 @@ export function FilterSet() {
           className="SwitchRoot"
           id={`${AgeGroup._26_32}-switch`}
           asChild={true}
+          checked={context.ageGroupFilter.includes(AgeGroup._26_32)}
         >
           <button
             className="SwitchThumb"
@@ -155,6 +158,7 @@ export function FilterSet() {
           className="SwitchRoot"
           id={`${AgeGroup._33}-switch`}
           asChild={true}
+          checked={context.ageGroupFilter.includes(AgeGroup._33)}
         >
           <button
             className="SwitchThumb"
@@ -180,6 +184,7 @@ export function FilterSet() {
           className="SwitchRoot"
           id={`${AgeGroup.UNDISCLOSED}-switch`}
           asChild={true}
+          checked={context.ageGroupFilter.includes(AgeGroup.UNDISCLOSED)}
         >
           <button
             className="SwitchThumb"
