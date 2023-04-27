@@ -28,12 +28,48 @@ export function AreYouModCreatorChart() {
 
   return (
     <div>
-      <ResponsiveContainer width={500} height={200}>
+      <ResponsiveContainer width="100%" height={400}>
         <BarChart data={data}>
-          <XAxis dataKey={"group"} />
-          <YAxis />
-          <Tooltip />
-          <Bar dataKey={"count"} />
+          <XAxis
+            dataKey={"group"}
+            stroke="hsl(var(--text-color--tertiary) / .25)"
+            tick={{
+              fill:"hsl(var(--text-color--tertiary))"
+            }}
+          />
+          <YAxis
+            stroke="hsl(var(--text-color--tertiary) / .25)"
+            tick={{
+              fill:"hsl(var(--text-color--tertiary))"
+            }}
+          />
+          <Tooltip
+            wrapperStyle={{ outline:"none", borderRadius:"border-radius:var(--border-radius--default)", }}
+            contentStyle={{
+              color:"#fff",
+              backgroundColor:"hsl(var(--surface-2))",
+              border:"0",
+              borderRadius:"var(--border-radius--default)",
+              padding:".35rem 1rem",
+              boxShadow:"var(--box-shadow--default)"
+            }}
+            labelStyle={{
+              color:"#fff",
+              fontWeight:"700",
+              fontSize:".8rem"
+            }}
+            itemStyle={{
+              color:"#fff",
+              textTransform:"capitalize"
+            }}
+            cursor={ false }
+            separator={ ": " }
+          />
+          <Bar
+            dataKey={"count"}
+            maxBarSize={ 64 }
+            fill="hsl(var(--text-color--accent))"
+          />
         </BarChart>
       </ResponsiveContainer>
     </div>
