@@ -1,0 +1,11 @@
+.logomark {}
+
+.wordmark {
+  display:none;
+}
+
+@media (min-width:60rem) {
+  .wordmark {
+    display:initial;
+  }
+}
