@@ -16,15 +16,27 @@ import {
   PaymentSize,
   SubscriptionFeatures,
 } from "@/data/types";
+import { useState } from "react";
 
 export default function Home() {
+  const [hideBar, setHideBar] = useState(false);
+
   return (
     <DataContextProvider>
       <div className={styles.content}>
-        <aside className={styles.sidebar}>
+        <aside
+          className={`${styles["sidebar"]} ${
+            hideBar ? styles["sidebar__active"] : null
+          }`}
+        >
           <h3>Filters</h3>
           <FilterSet />
-          <button className={styles.sidebar__toggle}>a</button>
+          <button
+            className={styles.sidebar__toggle}
+            onClick={() => setHideBar(!hideBar)}
+          >
+            Filters
+          </button>
         </aside>
 
         <main className={styles.main}>
@@ -37,107 +49,179 @@ export default function Home() {
                   </div>
                 </div>
                 <div className={styles.section__body}>
-                  <AreYouModCreatorChart />
+                  <YesNoChart dataKey="isModder" />
                 </div>
               </div>
 
               <div className={styles.section}>
                 <div className={styles.section__header}>
                   <div className={styles.section__title}>
-                    Are you a mod creator?
+                    Which platforms do you use as a mod creator?
                   </div>
                 </div>
                 <div className={styles.section__body}>
-                  <AreYouModCreatorChart />
+                  <MultipleAnswerChart
+                    {...ModdingPlatform}
+                    dataKey="platformsUsedAsModder"
+                  />
                 </div>
               </div>
 
               <div className={styles.section}>
                 <div className={styles.section__header}>
                   <div className={styles.section__title}>
-                    Are you a mod creator?
+                    Which platforms do you use as an end-user?
                   </div>
                 </div>
                 <div className={styles.section__body}>
-                  <AreYouModCreatorChart />
+                  <MultipleAnswerChart
+                    {...ModdingPlatform}
+                    dataKey="platformsUsedAsUser"
+                  />
+                </div>
+              </div>
+
+              <div className={styles.section}>
+                <div className={styles.section__header}>
+                  <div className={styles.section__title}>
+                    Have you supported mod creators directly?
+                  </div>
+                </div>
+                <div className={styles.section__body}>
+                  <SingleAnswerChart
+                    {...CreatorSupport}
+                    dataKey="hasSupportedCreators"
+                  />
+                </div>
+              </div>
+
+              <div className={styles.section}>
+                <div className={styles.section__header}>
+                  <div className={styles.section__title}>
+                    One-off payments: How much have you donated per month on
+                    average?
+                  </div>
+                </div>
+                <div className={styles.section__body}>
+                  <SingleAnswerChart
+                    {...PaymentSize}
+                    dataKey="oneOffMonthlyDonationAverage"
+                  />
+                </div>
+              </div>
+
+              <div className={styles.section}>
+                <div className={styles.section__header}>
+                  <div className={styles.section__title}>
+                    Recurring payments: How much have you donated per month on
+                    average?
+                  </div>
+                </div>
+                <div className={styles.section__body}>
+                  <SingleAnswerChart
+                    {...PaymentSize}
+                    dataKey="recurringMonthlyDonationAverage"
+                  />
+                </div>
+              </div>
+
+              <div className={styles.section}>
+                <div className={styles.section__header}>
+                  <div className={styles.section__title}>
+                    How much would you be willing to donate per month?
+                  </div>
+                </div>
+                <div className={styles.section__body}>
+                  <SingleAnswerChart
+                    {...PaymentSize}
+                    dataKey="willingToDonatePerMonth"
+                  />
+                </div>
+              </div>
+
+              <div className={styles.section}>
+                <div className={styles.section__header}>
+                  <div className={styles.section__title}>
+                    Why did you choose &quot;_____&quot; for supporting mod
+                    creators?
+                  </div>
+                </div>
+                <div className={styles.section__body}>
+                  <SingleAnswerChart
+                    {...DonateUnwillingnessReason}
+                    dataKey="reasonForNotWillingToDonate"
+                  />
+                </div>
+              </div>
+
+              <div className={styles.section}>
+                <div className={styles.section__header}>
+                  <div className={styles.section__title}>
+                    If it was possible, would you like to create mods as a
+                    profession?
+                  </div>
+                </div>
+                <div className={styles.section__body}>
+                  <SingleAnswerChart
+                    {...ModdingProfessionReply}
+                    dataKey="interstInModdingProfession"
+                  />
+                </div>
+              </div>
+
+              <div className={styles.section}>
+                <div className={styles.section__header}>
+                  <div className={styles.section__title}>
+                    Which of the following monetization models do you consider
+                    acceptable?
+                  </div>
+                </div>
+                <div className={styles.section__body}>
+                  <MultipleAnswerChart
+                    {...MonetizationModels}
+                    dataKey="acceptableMonetizationModels"
+                  />
+                </div>
+              </div>
+
+              <div className={styles.section}>
+                <div className={styles.section__header}>
+                  <div className={styles.section__title}>
+                    How would you prefer a premium subscription to look like?
+                  </div>
+                </div>
+                <div className={styles.section__body}>
+                  <MultipleAnswerChart
+                    {...SubscriptionFeatures}
+                    dataKey="subscriptionFeaturesPreferenceRanking"
+                  />
+                </div>
+              </div>
+
+              <div className={styles.section}>
+                <div className={styles.section__header}>
+                  <div className={styles.section__title}>
+                    If a premium subscription could be used to support mod
+                    creators and tool development, would you consider purchasing
+                    one?
+                  </div>
+                </div>
+                <div className={styles.section__body}>
+                  <YesNoChart dataKey="subscriptionConsiderationWillingness" />
+                </div>
+              </div>
+
+              <div className={styles.section}>
+                <div className={styles.section__header}>
+                  <div className={styles.section__title}>
+                    One last question! How old are you?
+                  </div>
+                </div>
+                <div className={styles.section__body}>
+                  <SingleAnswerChart {...AgeGroup} dataKey="ageGroup" />
                 </div>
               </div>
             </div>
-
-            <h1>Are you a mod creator?</h1>
-            <AreYouModCreatorChart />
-            <br />
-            <h1>Which platforms do you use as a mod creator?</h1>
-            <AreYouModCreatorChart />
-            <br />
-            <h1>Which platforms do you use as an end-user?</h1>
-            <AreYouModCreatorChart />
-            <br />
-            <h1>Have you supported mod creators directly?</h1>
-            <AreYouModCreatorChart />
-            <br />
-            <h1>
-              One-off payments: How much have you donated per month on average?
-            </h1>
-            <AreYouModCreatorChart />
-            <br />
-            <h1>
-              Recurring payments: How much have you donated per month on
-              average?
-            </h1>
-            <AreYouModCreatorChart />
-            <br />
-            <h1>How much would you be willing to donate per month?</h1>
-            <AreYouModCreatorChart />
-            <br />
-            <h1>
-              Why did you choose &quot;No&quot; for supporting mod creators?
-            </h1>
-            <AreYouModCreatorChart />
-            <br />
-            <h1>
-              If it was possible, would you like to create mods as a profession?
-            </h1>
-            <AreYouModCreatorChart />
-            <br />
-            <h1>
-              Which of the following monetization models do you consider
-              acceptable?
-            </h1>
-            <AreYouModCreatorChart />
-            <br />
-            <h1>How would you prefer a premium subscription to look like?</h1>
-            <br />
-            <h3>No ads</h3>
-            <AreYouModCreatorChart />
-            <h3>
-              Exclusive customization options (e.g. an animated avatar, a
-              special badge...)
-            </h3>
-            <AreYouModCreatorChart />
-            <h3>Exclusive QoL features</h3>
-            <AreYouModCreatorChart />
-            <h3>Unlimited download speed (free users throttled)</h3>
-            <AreYouModCreatorChart />
-            <h3>Early access to new platform features</h3>
-            <AreYouModCreatorChart />
-            <h3>Early access to mods (mod creator controls)</h3>
-            <AreYouModCreatorChart />
-            <h3>Premium mods (one subscription to access all)</h3>
-            <AreYouModCreatorChart />
-            <h3>Supporting mod creators</h3>
-            <AreYouModCreatorChart />
-            <h3>Supporting the platform</h3>
-            <AreYouModCreatorChart />
-            <br />
-            <h1>
-              If a premium subscription could be used to support mod creators
-              and tool development, would you consider purchasing one?
-            </h1>
-            <AreYouModCreatorChart />
-            <br />
-            <h1>One last question! How old are you?</h1>
-            <AreYouModCreatorChart />
           </div>
         </main>
       </div>
