@@ -9,7 +9,7 @@ import {
 import { AgeGroup } from "@/data/types";
 import * as Switch from "@radix-ui/react-switch";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
-import "./styles.css";
+import styles from "./FilterSet.module.css";
 
 interface toggleAgeGroupFilterProps {
   context: IDataContext;
@@ -32,165 +32,157 @@ function toggleAgeGroupFilter(props: toggleAgeGroupFilterProps) {
 export function FilterSet() {
   const context = useDataContext();
   return (
-    <div>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <ToggleGroup.Root
-          className="ToggleGroup"
-          type="single"
-          defaultValue="ALL"
-          value={context.isModderFilter}
-          onValueChange={(value: IsModderFilter) => {
-            if (value) context.setIsModderFilter(value);
-          }}
-          aria-label="Is modder"
-        >
-          <ToggleGroup.Item
-            className="ToggleGroupItem"
-            value={IsModderFilter.ALL}
-            aria-label="ALL"
+    <div className={styles.filters}>
+      <div
+        className={`${styles["filters__section"]} ${styles["filters__users"]}`}
+      >
+        <h4 className={styles.filters__section__title}>User Groups</h4>
+
+        <div className={styles.filters__row}>
+          <ToggleGroup.Root
+            className={styles.toggleGroup}
+            type="single"
+            defaultValue="ALL"
+            value={context.isModderFilter}
+            onValueChange={(value: IsModderFilter) => {
+              if (value) context.setIsModderFilter(value);
+            }}
+            aria-label="User groups"
           >
-            ALL
-          </ToggleGroup.Item>
-          <ToggleGroup.Item
-            className="ToggleGroupItem"
-            value={IsModderFilter.YES}
-            aria-label="Yes"
-          >
-            YES
-          </ToggleGroup.Item>
-          <ToggleGroup.Item
-            className="ToggleGroupItem"
-            value={IsModderFilter.NO}
-            aria-label="No"
-          >
-            NO
-          </ToggleGroup.Item>
-        </ToggleGroup.Root>
+            <ToggleGroup.Item
+              className={styles.toggleGroup__item}
+              value={IsModderFilter.ALL}
+              aria-label="Both"
+            >
+              Both
+            </ToggleGroup.Item>
+            <ToggleGroup.Item
+              className={styles.toggleGroup__item}
+              value={IsModderFilter.YES}
+              aria-label="Creators"
+            >
+              Creators
+            </ToggleGroup.Item>
+            <ToggleGroup.Item
+              className={styles.toggleGroup__item}
+              value={IsModderFilter.NO}
+              aria-label="End-users"
+            >
+              End-users
+            </ToggleGroup.Item>
+          </ToggleGroup.Root>
+        </div>
       </div>
 
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <label
-          className="Label"
-          htmlFor={`${AgeGroup._13_18}-switch`}
-          style={{ paddingRight: 15 }}
-        >
-          {AgeGroup._13_18}
-        </label>
-        <Switch.Root
-          className="SwitchRoot"
-          id={`${AgeGroup._13_18}-switch`}
-          asChild={true}
-        >
-          <button
-            className="SwitchThumb"
+      <div
+        className={`${styles["filters__section"]} ${styles["filters__age"]}`}
+      >
+        <h4 className={styles.filters__section__title}>Age Groups</h4>
+
+        <div className={styles.filters__row}>
+          <label
+            className={styles.label}
+            htmlFor={`${AgeGroup._13_18}-switch`}
+            style={{ paddingRight: 15 }}
+          >
+            {AgeGroup._13_18}
+          </label>
+          <Switch.Root
+            className={styles.switch}
+            id={`${AgeGroup._13_18}-switch`}
+            checked={context.ageGroupFilter.includes(AgeGroup._13_18)}
             onClick={() => {
               toggleAgeGroupFilter({
                 context: context,
                 enum: AgeGroup._13_18,
               });
             }}
-          ></button>
-        </Switch.Root>
-      </div>
+          ></Switch.Root>
+        </div>
 
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <label
-          className="Label"
-          htmlFor={`${AgeGroup._19_25}-switch`}
-          style={{ paddingRight: 15 }}
-        >
-          {AgeGroup._19_25}
-        </label>
-        <Switch.Root
-          className="SwitchRoot"
-          id={`${AgeGroup._19_25}-switch`}
-          asChild={true}
-        >
-          <button
-            className="SwitchThumb"
+        <div className={styles.filters__row}>
+          <label
+            className={styles.label}
+            htmlFor={`${AgeGroup._19_25}-switch`}
+            style={{ paddingRight: 15 }}
+          >
+            {AgeGroup._19_25}
+          </label>
+          <Switch.Root
+            className={styles.switch}
+            id={`${AgeGroup._19_25}-switch`}
+            checked={context.ageGroupFilter.includes(AgeGroup._19_25)}
             onClick={() => {
               toggleAgeGroupFilter({
                 context: context,
                 enum: AgeGroup._19_25,
               });
             }}
-          ></button>
-        </Switch.Root>
-      </div>
+          ></Switch.Root>
+        </div>
 
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <label
-          className="Label"
-          htmlFor={`${AgeGroup._26_32}-switch`}
-          style={{ paddingRight: 15 }}
-        >
-          {AgeGroup._26_32}
-        </label>
-        <Switch.Root
-          className="SwitchRoot"
-          id={`${AgeGroup._26_32}-switch`}
-          asChild={true}
-        >
-          <button
-            className="SwitchThumb"
+        <div className={styles.filters__row}>
+          <label
+            className={styles.label}
+            htmlFor={`${AgeGroup._26_32}-switch`}
+            style={{ paddingRight: 15 }}
+          >
+            {AgeGroup._26_32}
+          </label>
+          <Switch.Root
+            className={styles.switch}
+            id={`${AgeGroup._26_32}-switch`}
+            checked={context.ageGroupFilter.includes(AgeGroup._26_32)}
             onClick={() => {
               toggleAgeGroupFilter({
                 context: context,
                 enum: AgeGroup._26_32,
               });
             }}
-          ></button>
-        </Switch.Root>
-      </div>
+          ></Switch.Root>
+        </div>
 
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <label
-          className="Label"
-          htmlFor={`${AgeGroup._33}-switch`}
-          style={{ paddingRight: 15 }}
-        >
-          {AgeGroup._33}
-        </label>
-        <Switch.Root
-          className="SwitchRoot"
-          id={`${AgeGroup._33}-switch`}
-          asChild={true}
-        >
-          <button
-            className="SwitchThumb"
+        <div className={styles.filters__row}>
+          <label
+            className={styles.label}
+            htmlFor={`${AgeGroup._33}-switch`}
+            style={{ paddingRight: 15 }}
+          >
+            {AgeGroup._33}
+          </label>
+          <Switch.Root
+            className={styles.switch}
+            id={`${AgeGroup._33}-switch`}
+            checked={context.ageGroupFilter.includes(AgeGroup._33)}
             onClick={() => {
               toggleAgeGroupFilter({
                 context: context,
                 enum: AgeGroup._33,
               });
             }}
-          ></button>
-        </Switch.Root>
-      </div>
+          ></Switch.Root>
+        </div>
 
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <label
-          className="Label"
-          htmlFor={`${AgeGroup.UNDISCLOSED}-switch`}
-          style={{ paddingRight: 15 }}
-        >
-          {AgeGroup.UNDISCLOSED}
-        </label>
-        <Switch.Root
-          className="SwitchRoot"
-          id={`${AgeGroup.UNDISCLOSED}-switch`}
-          asChild={true}
-        >
-          <button
-            className="SwitchThumb"
+        <div className={styles.filters__row}>
+          <label
+            className={styles.label}
+            htmlFor={`${AgeGroup.UNDISCLOSED}-switch`}
+            style={{ paddingRight: 15 }}
+          >
+            {AgeGroup.UNDISCLOSED}
+          </label>
+          <Switch.Root
+            className={styles.switch}
+            id={`${AgeGroup.UNDISCLOSED}-switch`}
+            checked={context.ageGroupFilter.includes(AgeGroup.UNDISCLOSED)}
             onClick={() => {
               toggleAgeGroupFilter({
                 context: context,
                 enum: AgeGroup.UNDISCLOSED,
               });
             }}
-          ></button>
-        </Switch.Root>
+          ></Switch.Root>
+        </div>
       </div>
     </div>
   );
