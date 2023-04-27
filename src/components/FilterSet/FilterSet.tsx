@@ -50,21 +50,21 @@ export function FilterSet() {
             aria-label="User groups"
           >
             <ToggleGroup.Item
-              className={styles.toggleGroup}
+              className={styles.toggleGroup__item}
               value={IsModderFilter.ALL}
               aria-label="Both"
             >
               Both
             </ToggleGroup.Item>
             <ToggleGroup.Item
-              className={styles.toggleGroup}
+              className={styles.toggleGroup__item}
               value={IsModderFilter.YES}
               aria-label="Creators"
             >
               Creators
             </ToggleGroup.Item>
             <ToggleGroup.Item
-              className={styles.toggleGroup}
+              className={styles.toggleGroup__item}
               value={IsModderFilter.NO}
               aria-label="End-users"
             >
@@ -90,6 +90,7 @@ export function FilterSet() {
           <Switch.Root
             className={styles.switch}
             id={`${AgeGroup._13_18}-switch`}
+            checked={context.ageGroupFilter.includes(AgeGroup._13_18)}
             onClick={() => {
               toggleAgeGroupFilter({
                 context: context,
@@ -110,6 +111,7 @@ export function FilterSet() {
           <Switch.Root
             className={styles.switch}
             id={`${AgeGroup._19_25}-switch`}
+            checked={context.ageGroupFilter.includes(AgeGroup._19_25)}
             onClick={() => {
               toggleAgeGroupFilter({
                 context: context,
@@ -130,6 +132,7 @@ export function FilterSet() {
           <Switch.Root
             className={styles.switch}
             id={`${AgeGroup._26_32}-switch`}
+            checked={context.ageGroupFilter.includes(AgeGroup._26_32)}
             onClick={() => {
               toggleAgeGroupFilter({
                 context: context,
@@ -150,6 +153,7 @@ export function FilterSet() {
           <Switch.Root
             className={styles.switch}
             id={`${AgeGroup._33}-switch`}
+            checked={context.ageGroupFilter.includes(AgeGroup._33)}
             onClick={() => {
               toggleAgeGroupFilter({
                 context: context,
@@ -170,6 +174,7 @@ export function FilterSet() {
           <Switch.Root
             className={styles.switch}
             id={`${AgeGroup.UNDISCLOSED}-switch`}
+            checked={context.ageGroupFilter.includes(AgeGroup.UNDISCLOSED)}
             onClick={() => {
               toggleAgeGroupFilter({
                 context: context,
