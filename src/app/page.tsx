@@ -1,11 +1,14 @@
 "use client";
 
 import styles from "./page.module.css";
+import { faSliders, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DataContextProvider } from "@/components/DataContext";
 import { FilterSet } from "@/components/FilterSet/FilterSet";
 import { MultipleAnswerChart } from "@/components/graphs/MultipleAnswerChart";
 import { SingleAnswerChart } from "@/components/graphs/SingleAnswerChart";
 import { YesNoChart } from "@/components/graphs/YesNoChart";
+
 import {
   AgeGroup,
   CreatorSupport,
@@ -19,23 +22,28 @@ import {
 import { useState } from "react";
 
 export default function Home() {
-  const [hideBar, setHideBar] = useState(false);
+  const [sidebarActive, toggleSidebar] = useState(false);
 
   return (
     <DataContextProvider>
       <div className={styles.content}>
         <aside
           className={`${styles["sidebar"]} ${
-            hideBar ? styles["sidebar__active"] : null
+            sidebarActive ? styles["is-active"] : null
           }`}
         >
           <h3>Filters</h3>
           <FilterSet />
           <button
             className={styles.sidebar__toggle}
-            onClick={() => setHideBar(!hideBar)}
+            onClick={() => toggleSidebar(!sidebarActive)}
+            title={sidebarActive ? "Hide filters" : "Show filters"}
           >
-            Filters
+            <FontAwesomeIcon
+              aria-hidden
+              className="icon"
+              icon={sidebarActive ? faXmark : faSliders}
+            />
           </button>
         </aside>
 
