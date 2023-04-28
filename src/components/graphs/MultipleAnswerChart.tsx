@@ -87,7 +87,7 @@ export function MultipleAnswerChart(props: MultipleAnswerChartProps) {
               key={newProps[k]}
               dataKey={newProps[k]}
               maxBarSize={64}
-              fill="hsl(var(--text-color--accent))"
+              fill="hsl(var(--color--cyber-green-5))"
             />
           ))}
         </BarChart>

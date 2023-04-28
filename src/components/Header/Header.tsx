@@ -8,11 +8,13 @@ export const Header: React.FC = () => {
         <Logo />
       </div>
       <div className={styles.header__title}>Modding platform monetisation questionnaire 2023</div>
-      <div className={styles.header__actions}>
+
+      {/* Alt filter toggle button */}
+      {/*<div className={styles.header__actions}>
         <button className={styles.header__toggle}>
-          a
+          Filters
         </button>
-      </div>
+      </div>*/}
     </header>
   );
 }
