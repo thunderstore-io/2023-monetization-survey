@@ -78,7 +78,7 @@ export function SingleAnswerChart(props: SingleAnswerChartProps) {
           <Bar
             dataKey={"count"}
             maxBarSize={64}
-            fill="hsl(var(--text-color--accent))"
+            fill="hsl(var(--color--cyber-green-5))"
           />
         </BarChart>
       </ResponsiveContainer>
