@@ -1,0 +1,16 @@
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 36rem;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.section__title {
+  font-size: 1.4rem;
+}
