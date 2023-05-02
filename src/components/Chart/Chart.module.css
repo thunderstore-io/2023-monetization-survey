@@ -1,9 +1,3 @@
-.section__body {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
 .chart {
   display: flex;
   gap: 1.5rem;
@@ -15,12 +9,14 @@
 
 .chart__vertical {
   flex-direction: row;
+  gap:.5rem
 }
 
 .chart_item {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  min-width: 0;
 }
 
 .chart__vertical .chart_item {
@@ -60,7 +56,7 @@
 .chart_item__bar {
   position: relative;
   overflow: hidden;
-  background-color: hsl(var(--surface-2));
+  background-color: hsl(var(--surface-3) / .6);
 }
 
 .chart_item__bar::after {

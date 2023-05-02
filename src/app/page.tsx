@@ -50,7 +50,7 @@ export default function Home() {
 
         <main className={styles.main}>
           <div className={styles.container}>
-            <div className={styles.sections}>
+            <div className={styles.questions}>
               <Question question="Are you a mod creator?">
                 <YesNoChart dataKey="isModder" />
               </Question>

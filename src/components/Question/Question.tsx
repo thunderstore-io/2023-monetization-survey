@@ -9,13 +9,11 @@ interface QuestionProps {
 export function Question(props: QuestionProps) {
   const { question, children } = props;
   return (
-    <div className={styles.sections}>
-      <div className={styles.section}>
-        <div className={styles.section__header}>
-          <div className={styles.section__title}>{question}</div>
-        </div>
-        {children}
+    <div className={styles.question}>
+      <div className={styles.question__header}>
+        <div className={styles.question__title}>{question}</div>
       </div>
+      <div className={styles.question__body}>{children}</div>
     </div>
   );
 }

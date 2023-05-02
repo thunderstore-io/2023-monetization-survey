@@ -15,9 +15,9 @@ interface CustomCSS extends CSSProperties {
 }
 
 export function Chart(props: ChartProps) {
-  const { answerGroup, children } = props;
+  const { answerGroup } = props;
   return (
-    <div className={styles.section__body}>
+    <>
       {Object.keys(answerGroup).map((groupK, groupID) => (
         <div
           key={groupK}
@@ -27,7 +27,7 @@ export function Chart(props: ChartProps) {
               : styles["chart__horizontal"]
           }`}
         >
-          {answerGroup[groupID].subQuestion}
+          <div className={styles.chart_subquestion}>{answerGroup[groupID].subQuestion}</div>
           {Object.keys(answerGroup[groupID].answerSet).map((k, i) => (
             <div
               key={groupK}
@@ -51,7 +51,6 @@ export function Chart(props: ChartProps) {
           ))}
         </div>
       ))}
-      <div className={styles.section__footer}>{children}</div>
-    </div>
+    </>
   );
 }
