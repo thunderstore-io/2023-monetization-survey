@@ -6,7 +6,7 @@
 .container {
   flex: 1;
   width: 100%;
-  max-width: 50rem;
+  max-width: 46rem;
 }
 
 .main {
@@ -16,7 +16,7 @@
   align-items: center;
   min-width: 0;
   height: 100%;
-  padding: 6rem 2rem 4rem;
+  padding: 6rem 1rem 4rem;
 }
 
 @media (max-width: 60rem) {
@@ -95,8 +95,8 @@
   }
 }
 
-.sections {
+.questions {
   display: flex;
   flex-direction: column;
-  gap: 6rem;
+  gap: 4rem;
 }
