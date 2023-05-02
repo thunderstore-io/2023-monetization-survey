@@ -1,0 +1,15 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.section__title {
+  font-size: 1.5rem;
+}
+
+.section__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}

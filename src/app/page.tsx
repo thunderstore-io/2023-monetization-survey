@@ -20,6 +20,7 @@ import {
   SubscriptionFeatures,
 } from "@/data/types";
 import { useState } from "react";
+import { Question } from "@/components/Question/Question";
 
 export default function Home() {
   const [sidebarActive, toggleSidebar] = useState(false);
@@ -29,7 +30,7 @@ export default function Home() {
       <div className={styles.content}>
         <aside
           className={`${styles["sidebar"]} ${
-            sidebarActive ? styles["is-active"] : null
+            sidebarActive ? styles["is_active"] : null
           }`}
         >
           <h3>Filters</h3>
@@ -50,185 +51,89 @@ export default function Home() {
         <main className={styles.main}>
           <div className={styles.container}>
             <div className={styles.sections}>
-              <div className={styles.section}>
-                <div className={styles.section__header}>
-                  <div className={styles.section__title}>
-                    Are you a mod creator?
-                  </div>
-                </div>
-                <div className={styles.section__body}>
-                  <YesNoChart dataKey="isModder" />
-                </div>
-              </div>
+              <Question question="Are you a mod creator?">
+                <YesNoChart dataKey="isModder" />
+              </Question>
 
-              <div className={styles.section}>
-                <div className={styles.section__header}>
-                  <div className={styles.section__title}>
-                    Which platforms do you use as a mod creator?
-                  </div>
-                </div>
-                <div className={styles.section__body}>
-                  <MultipleAnswerChart
-                    {...ModdingPlatform}
-                    dataKey="platformsUsedAsModder"
-                  />
-                </div>
-              </div>
+              <Question question="Which platforms do you use as a mod creator?">
+                <MultipleAnswerChart
+                  {...ModdingPlatform}
+                  dataKey="platformsUsedAsModder"
+                  direction="vertical"
+                />
+              </Question>
 
-              <div className={styles.section}>
-                <div className={styles.section__header}>
-                  <div className={styles.section__title}>
-                    Which platforms do you use as an end-user?
-                  </div>
-                </div>
-                <div className={styles.section__body}>
-                  <MultipleAnswerChart
-                    {...ModdingPlatform}
-                    dataKey="platformsUsedAsUser"
-                  />
-                </div>
-              </div>
+              <Question question="Which platforms do you use as an end-user?">
+                <MultipleAnswerChart
+                  {...ModdingPlatform}
+                  dataKey="platformsUsedAsUser"
+                  direction="vertical"
+                />
+              </Question>
 
-              <div className={styles.section}>
-                <div className={styles.section__header}>
-                  <div className={styles.section__title}>
-                    Have you supported mod creators directly?
-                  </div>
-                </div>
-                <div className={styles.section__body}>
-                  <SingleAnswerChart
-                    {...CreatorSupport}
-                    dataKey="hasSupportedCreators"
-                  />
-                </div>
-              </div>
+              <Question question="Have you supported mod creators directly?">
+                <SingleAnswerChart
+                  {...CreatorSupport}
+                  dataKey="hasSupportedCreators"
+                />
+              </Question>
 
-              <div className={styles.section}>
-                <div className={styles.section__header}>
-                  <div className={styles.section__title}>
-                    One-off payments: How much have you donated per month on
-                    average?
-                  </div>
-                </div>
-                <div className={styles.section__body}>
-                  <SingleAnswerChart
-                    {...PaymentSize}
-                    dataKey="oneOffMonthlyDonationAverage"
-                  />
-                </div>
-              </div>
+              <Question question="One-off payments: How much have you donated per month on average?">
+                <SingleAnswerChart
+                  {...PaymentSize}
+                  dataKey="oneOffMonthlyDonationAverage"
+                />
+              </Question>
 
-              <div className={styles.section}>
-                <div className={styles.section__header}>
-                  <div className={styles.section__title}>
-                    Recurring payments: How much have you donated per month on
-                    average?
-                  </div>
-                </div>
-                <div className={styles.section__body}>
-                  <SingleAnswerChart
-                    {...PaymentSize}
-                    dataKey="recurringMonthlyDonationAverage"
-                  />
-                </div>
-              </div>
+              <Question question="Recurring payments: How much have you donated per month on average?">
+                <SingleAnswerChart
+                  {...PaymentSize}
+                  dataKey="recurringMonthlyDonationAverage"
+                />
+              </Question>
 
-              <div className={styles.section}>
-                <div className={styles.section__header}>
-                  <div className={styles.section__title}>
-                    How much would you be willing to donate per month?
-                  </div>
-                </div>
-                <div className={styles.section__body}>
-                  <SingleAnswerChart
-                    {...PaymentSize}
-                    dataKey="willingToDonatePerMonth"
-                  />
-                </div>
-              </div>
+              <Question question="How much would you be willing to donate per month?">
+                <SingleAnswerChart
+                  {...PaymentSize}
+                  dataKey="willingToDonatePerMonth"
+                />
+              </Question>
 
-              <div className={styles.section}>
-                <div className={styles.section__header}>
-                  <div className={styles.section__title}>
-                    Why did you choose &quot;_____&quot; for supporting mod
-                    creators?
-                  </div>
-                </div>
-                <div className={styles.section__body}>
-                  <SingleAnswerChart
-                    {...DonateUnwillingnessReason}
-                    dataKey="reasonForNotWillingToDonate"
-                  />
-                </div>
-              </div>
+              <Question question='Why did you choose "_____" for supporting mod creators?'>
+                <SingleAnswerChart
+                  {...DonateUnwillingnessReason}
+                  dataKey="reasonForNotWillingToDonate"
+                />
+              </Question>
 
-              <div className={styles.section}>
-                <div className={styles.section__header}>
-                  <div className={styles.section__title}>
-                    If it was possible, would you like to create mods as a
-                    profession?
-                  </div>
-                </div>
-                <div className={styles.section__body}>
-                  <SingleAnswerChart
-                    {...ModdingProfessionReply}
-                    dataKey="interstInModdingProfession"
-                  />
-                </div>
-              </div>
+              <Question question="If it was possible, would you like to create mods as a profession?">
+                <SingleAnswerChart
+                  {...ModdingProfessionReply}
+                  dataKey="interstInModdingProfession"
+                />
+              </Question>
 
-              <div className={styles.section}>
-                <div className={styles.section__header}>
-                  <div className={styles.section__title}>
-                    Which of the following monetization models do you consider
-                    acceptable?
-                  </div>
-                </div>
-                <div className={styles.section__body}>
-                  <MultipleAnswerChart
-                    {...MonetizationModels}
-                    dataKey="acceptableMonetizationModels"
-                  />
-                </div>
-              </div>
+              <Question question="Which of the following monetization models do you consider acceptable?">
+                <MultipleAnswerChart
+                  {...MonetizationModels}
+                  dataKey="acceptableMonetizationModels"
+                />
+              </Question>
 
-              <div className={styles.section}>
-                <div className={styles.section__header}>
-                  <div className={styles.section__title}>
-                    How would you prefer a premium subscription to look like?
-                  </div>
-                </div>
-                <div className={styles.section__body}>
-                  <MultipleAnswerChart
-                    {...SubscriptionFeatures}
-                    dataKey="subscriptionFeaturesPreferenceRanking"
-                  />
-                </div>
-              </div>
+              <Question question="How would you prefer a premium subscription to look like?">
+                <MultipleAnswerChart
+                  {...SubscriptionFeatures}
+                  dataKey="subscriptionFeaturesPreferenceRanking"
+                />
+              </Question>
 
-              <div className={styles.section}>
-                <div className={styles.section__header}>
-                  <div className={styles.section__title}>
-                    If a premium subscription could be used to support mod
-                    creators and tool development, would you consider purchasing
-                    one?
-                  </div>
-                </div>
-                <div className={styles.section__body}>
-                  <YesNoChart dataKey="subscriptionConsiderationWillingness" />
-                </div>
-              </div>
+              <Question question="If a premium subscription could be used to support mod creators and tool development, would you consider purchasing one?">
+                <YesNoChart dataKey="subscriptionConsiderationWillingness" />
+              </Question>
 
-              <div className={styles.section}>
-                <div className={styles.section__header}>
-                  <div className={styles.section__title}>
-                    One last question! How old are you?
-                  </div>
-                </div>
-                <div className={styles.section__body}>
-                  <SingleAnswerChart {...AgeGroup} dataKey="ageGroup" />
-                </div>
-              </div>
+              <Question question="One last question! How old are you?">
+                <SingleAnswerChart {...AgeGroup} dataKey="ageGroup" />
+              </Question>
             </div>
           </div>
         </main>
