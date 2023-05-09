@@ -3,10 +3,10 @@
 import React, { useMemo } from "react";
 import { useDataContext } from "@/components/DataContext";
 import { Chart } from "../Chart/Chart";
+import { IDataEntry } from "@/data/types";
 
 interface MultipleAnswerChartProps {
-  dataKey: string;
-  [key: `string${string}`]: string | number;
+  dataKey: keyof IDataEntry;
   direction?: string | "vertical" | "horizontal";
 }
 
@@ -31,6 +31,7 @@ export function MultipleAnswerChart(props: MultipleAnswerChartProps) {
 
     // Count stuff
     for (const entry of context.rows) {
+      if (!entry[dataKey]) continue;
       Object.keys(entry[dataKey]).map((k, index: number) => {
         result[index]["answers"][entry[dataKey][k]] += 1;
         result[index].total += 1;

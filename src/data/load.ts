@@ -13,6 +13,8 @@ import {
 import { faker } from "@faker-js/faker";
 import _ from "lodash";
 
+import * as results from "./results.json";
+
 const PLATFORM_OPTIONS = [
   ModdingPlatform.THUNDERSTORE,
   ModdingPlatform.NEXUS,
@@ -131,7 +133,13 @@ function generateRandomEntry(): IDataEntry {
     reasonForNotWillingToDonate: _.sample(DONATE_UNWILLINGNESS_OPTIONS)!,
     reasonForNotWillingToDonateOther: faker.lorem.sentence(),
     reasonForNotWillingToDonateOtherCategory: getDynamicCategories(),
-    interstInModdingProfession: _.sample(MOD_PROFESSION_OPTIONS)!,
+    interstInModdingProfession: _.sampleSize(
+      MOD_PROFESSION_OPTIONS,
+      faker.datatype.number({
+        min: 0,
+        max: MOD_PROFESSION_OPTIONS.length,
+      })
+    ),
     interstInModdingProfessionOther: faker.lorem.sentence(),
     interstInModdingProfessionOtherCategory: getDynamicCategories(),
     acceptableMonetizationModels: _.sampleSize(
@@ -150,8 +158,12 @@ function generateRandomEntry(): IDataEntry {
   };
 }
 
-export function loadData(count: number): IDataEntry[] {
+export function loadDummyData(count: number): IDataEntry[] {
   return Array(count)
     .fill(0)
     .map(() => generateRandomEntry());
+}
+
+export function loadData(): IDataEntry[] {
+  return results["entries"] as any as IDataEntry[];
 }

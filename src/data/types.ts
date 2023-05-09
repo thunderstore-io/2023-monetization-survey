@@ -1,5 +1,3 @@
-import { string } from "prop-types";
-
 export enum ModdingPlatform {
   THUNDERSTORE = "Thunderstore",
   NEXUS = "Nexusmods",
@@ -85,22 +83,22 @@ export type IDataEntry = {
   /**
    * Which platforms do you use as a mod creator?
    */
-  platformsUsedAsModder: ModdingPlatform[];
+  platformsUsedAsModder?: ModdingPlatform[] | null;
 
   /**
    * If {@link platformsUsedAsModder} includes OTHER, this is the content
    */
-  platformsUsedAsModderOther?: string;
+  platformsUsedAsModderOther?: string | null;
 
   /**
    * Why do you use ___ as a mod creator?
    */
-  platformsUseReasonAsModder: string;
+  platformsUseReasonAsModder?: string | null;
 
   /**
    * Post-processed categorization of the {@link platformsUseReasonAsModder} field.
    */
-  platformsUseReasonAsModderCategory?: DynamicCategory[];
+  platformsUseReasonAsModderCategory?: DynamicCategory[] | null;
 
   /**
    * Which platforms do you use as an end user?
@@ -110,7 +108,7 @@ export type IDataEntry = {
   /**
    * If {@link platformsUsedAsUser} includes OTHER, this is the content
    */
-  platformsUsedAsUserOther?: string;
+  platformsUsedAsUserOther?: string | null;
 
   /**
    * Why do you use ___ as an end user?
@@ -120,7 +118,7 @@ export type IDataEntry = {
   /**
    * Post-processed categorization of the {@link platformsUseReasonAsUser} field.
    */
-  platformsUseReasonAsUserCategory?: DynamicCategory[];
+  platformsUseReasonAsUserCategory?: DynamicCategory[] | null;
 
   /**
    * Have you supported mod creators directly?
@@ -130,47 +128,47 @@ export type IDataEntry = {
   /**
    * One-off payments: How much have you donated per month on average?
    */
-  oneOffMonthlyDonationAverage?: PaymentSize;
+  oneOffMonthlyDonationAverage?: PaymentSize | null;
 
   /**
    * Recurring payments: How much have you donated per month on average?
    */
-  recurringMonthlyDonationAverage?: PaymentSize;
+  recurringMonthlyDonationAverage?: PaymentSize | null;
 
   /**
    * How much would you be willing to donate per month?
    */
-  willingToDonatePerMonth?: PaymentSize;
+  willingToDonatePerMonth?: PaymentSize | null;
 
   /**
    * Reason for choosing no for mod creator support
    */
-  reasonForNotWillingToDonate: DonateUnwillingnessReason;
+  reasonForNotWillingToDonate?: DonateUnwillingnessReason | null;
 
   /**
    * If {@link reasonForNotWillingToDonate} was OTHER, this is the message
    */
-  reasonForNotWillingToDonateOther?: string;
+  reasonForNotWillingToDonateOther?: string | null;
 
   /**
    * Post-processed categorization of the {@link reasonForNotWillingToDonateOther} field.
    */
-  reasonForNotWillingToDonateOtherCategory?: DynamicCategory[];
+  reasonForNotWillingToDonateOtherCategory?: DynamicCategory[] | null;
 
   /**
    * If it was possible, would you like to create mods as a profession?
    */
-  interstInModdingProfession: ModdingProfessionReply;
+  interstInModdingProfession?: ModdingProfessionReply[] | null;
 
   /**
    * If {@link interstInModdingProfession} was OTHER, this is the message
    */
-  interstInModdingProfessionOther?: string;
+  interstInModdingProfessionOther?: string | null;
 
   /**
    * Post-processed categorization of the {@link interstInModdingProfessionOther} field.
    */
-  interstInModdingProfessionOtherCategory?: DynamicCategory[];
+  interstInModdingProfessionOtherCategory?: DynamicCategory[] | null;
 
   /**
    * Which of the following monetization models do you consider acceptable?
@@ -195,7 +193,7 @@ export type IDataEntry = {
   /**
    * Post-processed categorization of the {@link subscriptionDecisionMainFactor} field.
    */
-  subscriptionDecisionMainFactorCategory?: DynamicCategory[];
+  subscriptionDecisionMainFactorCategory?: DynamicCategory[] | null;
 
   /**
    * If a premium subscription could be used to support mod creators and tool development,

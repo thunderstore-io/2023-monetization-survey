@@ -107,7 +107,7 @@ export default function Home() {
               </Question>
 
               <Question question="If it was possible, would you like to create mods as a profession?">
-                <SingleAnswerChart
+                <MultipleAnswerChart
                   {...ModdingProfessionReply}
                   dataKey="interstInModdingProfession"
                 />

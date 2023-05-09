@@ -3,10 +3,10 @@
 import React, { useMemo } from "react";
 import { useDataContext } from "@/components/DataContext";
 import { Chart } from "../Chart/Chart";
+import { IDataEntry } from "@/data/types";
 
 interface SingleAnswerChartProps {
-  dataKey?: string;
-  [key: `string${string}`]: string;
+  dataKey: keyof IDataEntry;
   direction?: string | "vertical" | "horizontal";
 }
 
@@ -20,6 +20,7 @@ export function SingleAnswerChart(props: SingleAnswerChartProps) {
     Object.keys(newProps).map((k) => (result[newProps[k]] = { count: 0 }));
     let total = 0;
     for (const entry of context.rows) {
+      if (!entry[dataKey]) continue;
       result[entry[dataKey]].count += 1;
       total += 1;
     }

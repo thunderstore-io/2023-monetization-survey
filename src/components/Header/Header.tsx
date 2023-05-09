@@ -7,7 +7,9 @@ export const Header: React.FC = () => {
       <div className={styles.header__logo}>
         <Logo />
       </div>
-      <div className={styles.header__title}>Modding platform monetisation questionnaire 2023</div>
+      <div className={styles.header__title}>
+        Modding platform monetization questionnaire 2023
+      </div>
 
       {/* Alt filter toggle button */}
       {/*<div className={styles.header__actions}>
@@ -17,4 +19,4 @@ export const Header: React.FC = () => {
       </div>*/}
     </header>
   );
-}
+};

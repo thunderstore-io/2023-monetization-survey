@@ -30,7 +30,7 @@ export const DataContextProvider: React.FC<PropsWithChildren> = (props) => {
     IsModderFilter.ALL
   );
   const rawData = React.useMemo<IDataEntry[]>(() => {
-    return loadData(1100);
+    return loadData();
   }, []);
   const filteredData = React.useMemo<IDataEntry[]>(() => {
     return rawData.filter((x) => {
