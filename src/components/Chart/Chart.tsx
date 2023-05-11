@@ -35,31 +35,33 @@ export function Chart(props: ChartProps) {
           <div className={styles.chart_subquestion}>
             {answerGroup[groupID].subQuestion}
           </div>
-          <div className={styles.chart_subquestion}>
+          <div className={styles.chart_total}>
             Total Responses: {answerGroup[groupID].total}
           </div>
-          {Object.keys(answerGroup[groupID].answerSet).map((k, i) => (
-            <div
-              key={groupK}
-              className={styles.chart_item}
-              style={
-                {
-                  "--p": answerGroup[groupID].answerSet[i].percentage,
-                } as CustomCSS
-              }
-            >
-              <div className={styles.chart_item__header}>
-                <div className={styles.chart_item__title}>
-                  {answerGroup[groupID].answerSet[i].answerText}
+          <div class={styles.chart_items}>
+            {Object.keys(answerGroup[groupID].answerSet).map((k, i) => (
+              <div
+                key={groupK}
+                className={styles.chart_item}
+                style={
+                  {
+                    "--p": answerGroup[groupID].answerSet[i].percentage,
+                  } as CustomCSS
+                }
+              >
+                <div className={styles.chart_item__header}>
+                  <div className={styles.chart_item__title}>
+                    {answerGroup[groupID].answerSet[i].answerText}
+                  </div>
+                  <div className={styles.chart_item__value}>
+                    <div className={styles.chart_item__count}>{answerGroup[groupID].answerSet[i].count} resp.{" "}</div>
+                    <div className={styles.chart_item__percentage}>{answerGroup[groupID].answerSet[i].percentage}%</div>
+                  </div>
                 </div>
-                <div className={styles.chart_item__value}>
-                  {answerGroup[groupID].answerSet[i].count} resp.{" "}
-                  {answerGroup[groupID].answerSet[i].percentage}%
-                </div>
+                <div className={styles.chart_item__bar}></div>
               </div>
-              <div className={styles.chart_item__bar}></div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       ))}
     </>

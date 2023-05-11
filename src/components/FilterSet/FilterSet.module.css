@@ -15,9 +15,6 @@
   align-items:center;
   gap:1rem;
 }
-.filters__age .filters__row :nth-child(1) {
-  order:2;
-}
 
 /**/
 
