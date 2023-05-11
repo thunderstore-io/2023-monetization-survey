@@ -27,9 +27,10 @@ export function YesNoChart(props: YesNoChartProps) {
 
     return [
       {
+        total: total,
         answerSet: Object.keys(result).map((k) => ({
           answerText: k === "yes" ? "Yes" : "No",
-          total: total,
+          count: result[k].count,
           percentage: Math.round((result[k].count / total) * 100),
         })),
         direction: "horizontal",

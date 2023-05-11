@@ -4,7 +4,12 @@ import styles from "./Chart.module.css";
 interface ChartProps {
   answerGroup: {
     subQuestion?: string | number;
-    answerSet: { answerText: string; percentage: number }[];
+    total: number;
+    answerSet: {
+      answerText: string;
+      percentage: number;
+      count: number;
+    }[];
     direction: string | "vertical" | "horizontal";
   }[];
   children?: ReactNode;
@@ -27,7 +32,12 @@ export function Chart(props: ChartProps) {
               : styles["chart__horizontal"]
           }`}
         >
-          <div className={styles.chart_subquestion}>{answerGroup[groupID].subQuestion}</div>
+          <div className={styles.chart_subquestion}>
+            {answerGroup[groupID].subQuestion}
+          </div>
+          <div className={styles.chart_subquestion}>
+            Total Responses: {answerGroup[groupID].total}
+          </div>
           {Object.keys(answerGroup[groupID].answerSet).map((k, i) => (
             <div
               key={groupK}
@@ -43,6 +53,7 @@ export function Chart(props: ChartProps) {
                   {answerGroup[groupID].answerSet[i].answerText}
                 </div>
                 <div className={styles.chart_item__value}>
+                  {answerGroup[groupID].answerSet[i].count} resp.{" "}
                   {answerGroup[groupID].answerSet[i].percentage}%
                 </div>
               </div>

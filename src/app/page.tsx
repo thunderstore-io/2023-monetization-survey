@@ -21,6 +21,9 @@ import {
 } from "@/data/types";
 import { useState } from "react";
 import { Question } from "@/components/Question/Question";
+import { OrderedMultipleAnswerChart } from "@/components/graphs/OrderedMultipleAnswerChart";
+import { DynamicAnswerChart } from "@/components/graphs/DynamicAnswerChart";
+import { DynamicNumberAnswerChart } from "@/components/graphs/DynamicNumberAnswerChart";
 
 export default function Home() {
   const [sidebarActive, toggleSidebar] = useState(false);
@@ -59,7 +62,14 @@ export default function Home() {
                 <MultipleAnswerChart
                   {...ModdingPlatform}
                   dataKey="platformsUsedAsModder"
-                  direction="vertical"
+                  direction="horizontal"
+                />
+              </Question>
+
+              <Question question='Why do you use "Other" as a mod creator?'>
+                <DynamicAnswerChart
+                  dataKey="platformsUseReasonAsModderCategory"
+                  direction="horizontal"
                 />
               </Question>
 
@@ -67,7 +77,14 @@ export default function Home() {
                 <MultipleAnswerChart
                   {...ModdingPlatform}
                   dataKey="platformsUsedAsUser"
-                  direction="vertical"
+                  direction="horizontal"
+                />
+              </Question>
+
+              <Question question="Why do you use ___ as an end user?">
+                <DynamicAnswerChart
+                  dataKey="platformsUseReasonAsUserCategory"
+                  direction="horizontal"
                 />
               </Question>
 
@@ -75,6 +92,7 @@ export default function Home() {
                 <SingleAnswerChart
                   {...CreatorSupport}
                   dataKey="hasSupportedCreators"
+                  direction="horizontal"
                 />
               </Question>
 
@@ -82,6 +100,7 @@ export default function Home() {
                 <SingleAnswerChart
                   {...PaymentSize}
                   dataKey="oneOffMonthlyDonationAverage"
+                  direction="horizontal"
                 />
               </Question>
 
@@ -89,6 +108,7 @@ export default function Home() {
                 <SingleAnswerChart
                   {...PaymentSize}
                   dataKey="recurringMonthlyDonationAverage"
+                  direction="horizontal"
                 />
               </Question>
 
@@ -96,13 +116,22 @@ export default function Home() {
                 <SingleAnswerChart
                   {...PaymentSize}
                   dataKey="willingToDonatePerMonth"
+                  direction="horizontal"
                 />
               </Question>
 
-              <Question question='Why did you choose "_____" for supporting mod creators?'>
+              <Question question='Why did you choose "No" for supporting mod creators?'>
                 <SingleAnswerChart
                   {...DonateUnwillingnessReason}
                   dataKey="reasonForNotWillingToDonate"
+                  direction="horizontal"
+                />
+              </Question>
+
+              <Question question='Responses for choosing "Other" for not supporting mod creators:'>
+                <DynamicAnswerChart
+                  dataKey="reasonForNotWillingToDonateOtherCategory"
+                  direction="horizontal"
                 />
               </Question>
 
@@ -110,6 +139,14 @@ export default function Home() {
                 <MultipleAnswerChart
                   {...ModdingProfessionReply}
                   dataKey="interstInModdingProfession"
+                  direction="horizontal"
+                />
+              </Question>
+
+              <Question question='Responses for choosing "Other" in creating mods as a profession:'>
+                <DynamicAnswerChart
+                  dataKey="interstInModdingProfessionOtherCategory"
+                  direction="horizontal"
                 />
               </Question>
 
@@ -117,13 +154,29 @@ export default function Home() {
                 <MultipleAnswerChart
                   {...MonetizationModels}
                   dataKey="acceptableMonetizationModels"
+                  direction="horizontal"
                 />
               </Question>
 
               <Question question="How would you prefer a premium subscription to look like?">
-                <MultipleAnswerChart
+                <OrderedMultipleAnswerChart
                   {...SubscriptionFeatures}
                   dataKey="subscriptionFeaturesPreferenceRanking"
+                  direction="vertical"
+                />
+              </Question>
+
+              <Question question="What would you consider a fair price for a monthly premium subscription?">
+                <DynamicNumberAnswerChart
+                  dataKey="subscriptionFairPrice"
+                  direction="horizontal"
+                />
+              </Question>
+
+              <Question question="When you consider purchasing a subscription, what is the main factor you base your decision on?">
+                <DynamicAnswerChart
+                  dataKey="subscriptionDecisionMainFactorCategory"
+                  direction="horizontal"
                 />
               </Question>
 
