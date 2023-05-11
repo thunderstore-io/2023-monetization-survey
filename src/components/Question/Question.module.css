@@ -1,19 +1,19 @@
 .question {
   display: flex;
   flex-direction: column;
-  gap:1rem;
+  gap: 1rem;
   background-color: hsl(var(--surface-1));
   border-radius: var(--border-radius--default);
-  padding:1rem;
+  padding: 1rem;
 }
 @media (min-width:38rem) {
   .question {
-    padding:4rem;
+    padding: 4rem;
   }
 }
 
 .question__header {
-  display:flex;
+  display: flex;
 }
 
 .question__title {
