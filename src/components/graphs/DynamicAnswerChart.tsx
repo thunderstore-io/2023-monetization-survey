@@ -4,14 +4,20 @@ import React, { useMemo } from "react";
 import { useDataContext } from "@/components/DataContext";
 import { Chart } from "../Chart/Chart";
 import { IDataEntry } from "@/data/types";
+import { Question } from "../Question/Question";
 
 interface DynamicAnswerChartProps {
   dataKey: keyof IDataEntry;
   direction?: string | "vertical" | "horizontal";
+  question?: string;
 }
 
 export function DynamicAnswerChart(props: DynamicAnswerChartProps) {
-  const { ["dataKey"]: dataKey, ["direction"]: direction } = props;
+  const {
+    ["dataKey"]: dataKey,
+    ["direction"]: direction,
+    ["question"]: question,
+  } = props;
   const context = useDataContext();
   const data = useMemo(() => {
     const result: {
@@ -46,5 +52,15 @@ export function DynamicAnswerChart(props: DynamicAnswerChartProps) {
     ];
   }, [context.rows]);
 
-  return <Chart answerGroup={data}></Chart>;
+  if (data.every((answerGroup) => answerGroup.total < 1)) return <></>;
+
+  if (question) {
+    return (
+      <Question question={question}>
+        <Chart answerGroups={data}></Chart>
+      </Question>
+    );
+  } else {
+    return <Chart answerGroups={data}></Chart>;
+  }
 }

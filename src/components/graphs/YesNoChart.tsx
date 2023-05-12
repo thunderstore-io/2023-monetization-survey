@@ -3,9 +3,11 @@
 import React, { useMemo } from "react";
 import { useDataContext } from "@/components/DataContext";
 import { Chart } from "../Chart/Chart";
+import { Question } from "../Question/Question";
 
 interface YesNoChartProps {
   dataKey: string;
+  question: string;
 }
 
 export function YesNoChart(props: YesNoChartProps) {
@@ -38,5 +40,15 @@ export function YesNoChart(props: YesNoChartProps) {
     ];
   }, [context.rows]);
 
-  return <Chart answerGroup={data}></Chart>;
+  if (data.every((answerGroup) => answerGroup.total < 1)) return <></>;
+
+  if (props.question) {
+    return (
+      <Question question={props.question}>
+        <Chart answerGroups={data}></Chart>
+      </Question>
+    );
+  } else {
+    return <Chart answerGroups={data}></Chart>;
+  }
 }

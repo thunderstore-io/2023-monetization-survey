@@ -4,16 +4,22 @@ import React, { useMemo } from "react";
 import { useDataContext } from "@/components/DataContext";
 import { Chart } from "../Chart/Chart";
 import { IDataEntry } from "@/data/types";
+import { Question } from "../Question/Question";
 
 interface OrderedMultipleAnswerChartProps {
   dataKey: keyof IDataEntry;
   direction?: string | "vertical" | "horizontal";
+  question?: string;
 }
 
 export function OrderedMultipleAnswerChart(
   props: OrderedMultipleAnswerChartProps
 ) {
-  const { ["dataKey"]: dataKey, ["direction"]: direction, ...newProps } = props;
+  const {
+    ["dataKey"]: dataKey,
+    ["direction"]: direction,
+    ["question"]: question,
+  } = props;
   const context = useDataContext();
   const data = useMemo(() => {
     const result: {
@@ -55,5 +61,28 @@ export function OrderedMultipleAnswerChart(
     }));
   }, [context.rows]);
 
-  return <Chart answerGroup={data}></Chart>;
+  // Check if the total amount of responses is the same in all answerGroups
+  const totalOverride = data.every(
+    (answerGroup) => answerGroup.total % data[0].total === 0
+  );
+
+  if (data.every((answerGroup) => answerGroup.total < 1)) return <></>;
+
+  if (question) {
+    return (
+      <Question question={question}>
+        <Chart
+          answerGroups={data}
+          totalOverride={totalOverride ? data[0].total : undefined}
+        ></Chart>
+      </Question>
+    );
+  } else {
+    return (
+      <Chart
+        answerGroup={data}
+        totalOverride={totalOverride ? data[0].total : undefined}
+      ></Chart>
+    );
+  }
 }
