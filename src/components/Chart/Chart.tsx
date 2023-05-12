@@ -52,7 +52,11 @@ export function Chart(props: ChartProps) {
               <></>
             )}
             <div className={styles.chart_items}>
-              {Object.keys(answerGroups[groupID].answerSet).map((k, i) => (
+              {Object.keys(
+                answerGroups[groupID].answerSet.sort(
+                  (a, b) => b.count - a.count
+                )
+              ).map((k, i) => (
                 <div
                   key={groupK}
                   className={styles.chart_item}
