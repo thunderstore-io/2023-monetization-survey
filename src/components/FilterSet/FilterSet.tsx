@@ -54,7 +54,7 @@ export function FilterSet() {
               value={IsModderFilter.ALL}
               aria-label="Both"
             >
-              Both
+              All
             </ToggleGroup.Item>
             <ToggleGroup.Item
               className={styles.toggleGroup__item}

@@ -1,15 +1,21 @@
 .chart {
   display: flex;
-  gap: 1.5rem;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.chart__horizontal {
+.chart_items {
+  display: flex;
+  gap: 2rem;
+}
+.chart__horizontal .chart_items {
   flex-direction: column;
 }
-
-.chart__vertical {
-  flex-direction: row;
-  gap:.5rem
+.chart__vertical .chart_items {
+  gap: 0.5rem;
+}
+.chart__vertical + .chart__vertical {
+  margin-top:5rem;
 }
 
 .chart_item {
@@ -18,7 +24,6 @@
   gap: 0.5rem;
   min-width: 0;
 }
-
 .chart__vertical .chart_item {
   flex: 0 1 100%;
   gap: 1rem;
@@ -26,17 +31,16 @@
   justify-content: flex-end;
   text-align: center;
 }
-
 .chart_item__header {
   display: flex;
-  color: hsl(var(--text-color--secondary));
   font-size: 0.875rem;
 }
 
 .chart__horizontal .chart_item__header {
   justify-content: space-between;
+  align-items: flex-end;
+  gap: 5rem;
 }
-
 .chart__vertical .chart_item__header {
   flex: 1;
   flex-direction: column;
@@ -44,21 +48,56 @@
   align-items: center;
 }
 
+.chart_item__title {
+  white-space: break-spaces;
+}
 .chart__vertical .chart_item__title {
   flex: 1;
 }
 
-.chart_item__value {
-  color: hsl(var(--text-color--accent));
+.chart_subquestion {
   font-weight: 700;
 }
+.chart_subquestion:empty {
+  display: none;
+}
+
+.chart_total {
+  display: flex;
+  font-size: 0.875rem;
+  color: hsl(var(--text-color--tertiary));
+  margin-bottom: 3rem;
+}
+.chart__vertical .chart_total {
+  margin-bottom: -3rem;
+}
+
+.chart_item__value {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.chart__vertical .chart_item__value {
+  flex-direction: column;
+}
+
+.chart_item__count {
+  color: hsl(var(--text-color--tertiary));
+  font-weight: 400;
+  font-size: 0.75rem;
+}
+
+.chart_item__percentage {
+  font-weight: 700;
+}
+
 
 .chart_item__bar {
   position: relative;
   overflow: hidden;
   background-color: hsl(var(--surface-3) / .6);
 }
-
 .chart_item__bar::after {
   --s: calc(var(--p, 0) / 100);
 
@@ -72,26 +111,28 @@
   transition: scale 0.25s ease-out;
   content: "\0020";
 }
-
 .chart__horizontal .chart_item__bar {
   width: 100%;
   height: 1.25rem;
   border-radius: 0.25rem;
 }
-
 .chart__horizontal .chart_item__bar::after {
   transform-origin: 0 50%;
   scale: var(--s) 1;
 }
-
 .chart__vertical .chart_item__bar {
   width: 100%;
   max-width: 4rem;
   height: 8rem;
   border-radius: 0.5rem;
 }
-
 .chart__vertical .chart_item__bar::after {
   transform-origin: 50% 100%;
   scale: 1 var(--s);
+}
+
+.chart_empty {
+  color: hsl(var(--text-color--tertiary));
+  font-size: .875rem;
+  font-style: italic;
 }

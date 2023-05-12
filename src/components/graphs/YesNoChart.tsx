@@ -3,9 +3,11 @@
 import React, { useMemo } from "react";
 import { useDataContext } from "@/components/DataContext";
 import { Chart } from "../Chart/Chart";
+import { Question } from "../Question/Question";
 
 interface YesNoChartProps {
   dataKey: string;
+  question?: string;
 }
 
 export function YesNoChart(props: YesNoChartProps) {
@@ -27,9 +29,10 @@ export function YesNoChart(props: YesNoChartProps) {
 
     return [
       {
+        total: total,
         answerSet: Object.keys(result).map((k) => ({
           answerText: k === "yes" ? "Yes" : "No",
-          total: total,
+          count: result[k].count,
           percentage: Math.round((result[k].count / total) * 100),
         })),
         direction: "horizontal",
@@ -37,5 +40,5 @@ export function YesNoChart(props: YesNoChartProps) {
     ];
   }, [context.rows]);
 
-  return <Chart answerGroup={data}></Chart>;
+  return <Chart answerGroups={data}></Chart>;
 }

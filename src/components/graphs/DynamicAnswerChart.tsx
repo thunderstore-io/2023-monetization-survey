@@ -6,29 +6,36 @@ import { Chart } from "../Chart/Chart";
 import { IDataEntry } from "@/data/types";
 import { Question } from "../Question/Question";
 
-interface SingleAnswerChartProps {
+interface DynamicAnswerChartProps {
   dataKey: keyof IDataEntry;
   direction?: string | "vertical" | "horizontal";
   question?: string;
 }
 
-export function SingleAnswerChart(props: SingleAnswerChartProps) {
+export function DynamicAnswerChart(props: DynamicAnswerChartProps) {
   const {
     ["dataKey"]: dataKey,
     ["direction"]: direction,
     ["question"]: question,
-    ...newProps
   } = props;
   const context = useDataContext();
   const data = useMemo(() => {
     const result: {
-      [key: string]: { count: number };
+      [key: string]: { description: string; count: number };
     } = {};
-    Object.keys(newProps).map((k) => (result[newProps[k]] = { count: 0 }));
     let total = 0;
     for (const entry of context.rows) {
       if (!entry[dataKey]) continue;
-      result[entry[dataKey]].count += 1;
+      for (const categoryEntry of entry[dataKey]) {
+        if (!result[categoryEntry.id]) {
+          result[categoryEntry.id] = {
+            description: categoryEntry.description,
+            count: 1,
+          };
+        } else {
+          result[categoryEntry.id].count += 1;
+        }
+      }
       total += 1;
     }
 
@@ -37,7 +44,7 @@ export function SingleAnswerChart(props: SingleAnswerChartProps) {
         direction: direction,
         total: total,
         answerSet: Object.keys(result).map((k) => ({
-          answerText: k,
+          answerText: result[k].description,
           count: result[k].count,
           percentage: Math.round((result[k].count / total) * 100),
         })),

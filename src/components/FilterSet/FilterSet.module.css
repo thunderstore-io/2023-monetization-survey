@@ -15,36 +15,35 @@
   align-items:center;
   gap:1rem;
 }
-.filters__age .filters__row :nth-child(1) {
-  order:2;
-}
 
 /**/
 
 .toggleGroup {
   display:flex;
   flex-direction:column;
-  gap:.5rem;
+  gap:2px;
   flex:1;
 }
 
 .toggleGroup__item {
   background-color:hsl(var(--surface-2));
   padding:.5rem 1rem;
-  border-radius:.5rem;
   font-weight:700;
   border:2px solid transparent;
   flex:1;
   cursor:pointer;
-  transition:all .12s;
+}
+.toggleGroup__item:first-child {
+  border-radius:.5rem .5rem 0 0;
+}
+.toggleGroup__item:last-child {
+  border-radius:0 0 .5rem .5rem;
 }
 .toggleGroup__item:hover:not([data-state=on]) {
   background-color:hsl(var(--surface-3));
-  border-color:var(--border-color--highlight);
 }
 .toggleGroup__item[data-state=on] {
-  background-color:hsl(var(--color--cyber-green-10));
-  border-color:hsl(var(--color--cyber-green-5));
+  background-color:hsl(var(--surface-4));
 }
 
 .label {
