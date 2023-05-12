@@ -85,8 +85,8 @@ export function Chart(props: ChartProps) {
             </div>
           </div>
         ) : (
-          <div key={groupK} className={styles.chart_item}>
-            Sowwy Mommy has no charts for you, because of the filters :C
+          <div key={groupK} className={styles.chart_empty}>
+            No responses with the selected filters
           </div>
         );
       })}
