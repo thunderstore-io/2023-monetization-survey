@@ -58,7 +58,7 @@ export function Chart(props: ChartProps) {
                 )
               ).map((k, i) => (
                 <div
-                  key={groupK}
+                  key={`${groupK}_${answerGroups[groupID].answerSet[i].answerText}`}
                   className={styles.chart_item}
                   style={
                     {
@@ -85,7 +85,9 @@ export function Chart(props: ChartProps) {
             </div>
           </div>
         ) : (
-          <></>
+          <div key={groupK} className={styles.chart_item}>
+            Sowwy Mommy has no charts for you, because of the filters :C
+          </div>
         );
       })}
     </>

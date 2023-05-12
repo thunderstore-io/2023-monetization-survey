@@ -66,23 +66,10 @@ export function OrderedMultipleAnswerChart(
     (answerGroup) => answerGroup.total % data[0].total === 0
   );
 
-  if (data.every((answerGroup) => answerGroup.total < 1)) return <></>;
-
-  if (question) {
-    return (
-      <Question question={question}>
-        <Chart
-          answerGroups={data}
-          totalOverride={totalOverride ? data[0].total : undefined}
-        ></Chart>
-      </Question>
-    );
-  } else {
-    return (
-      <Chart
-        answerGroup={data}
-        totalOverride={totalOverride ? data[0].total : undefined}
-      ></Chart>
-    );
-  }
+  return (
+    <Chart
+      answerGroups={data}
+      totalOverride={totalOverride && data[0] ? data[0].total : undefined}
+    ></Chart>
+  );
 }

@@ -7,7 +7,7 @@ import { Question } from "../Question/Question";
 
 interface YesNoChartProps {
   dataKey: string;
-  question: string;
+  question?: string;
 }
 
 export function YesNoChart(props: YesNoChartProps) {
@@ -40,15 +40,5 @@ export function YesNoChart(props: YesNoChartProps) {
     ];
   }, [context.rows]);
 
-  if (data.every((answerGroup) => answerGroup.total < 1)) return <></>;
-
-  if (props.question) {
-    return (
-      <Question question={props.question}>
-        <Chart answerGroups={data}></Chart>
-      </Question>
-    );
-  } else {
-    return <Chart answerGroups={data}></Chart>;
-  }
+  return <Chart answerGroups={data}></Chart>;
 }

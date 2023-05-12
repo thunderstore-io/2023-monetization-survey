@@ -45,15 +45,5 @@ export function SingleAnswerChart(props: SingleAnswerChartProps) {
     ];
   }, [context.rows]);
 
-  if (data.every((answerGroup) => answerGroup.total < 1)) return <></>;
-
-  if (question) {
-    return (
-      <Question question={question}>
-        <Chart answerGroups={data}></Chart>
-      </Question>
-    );
-  } else {
-    return <Chart answerGroups={data}></Chart>;
-  }
+  return <Chart answerGroups={data}></Chart>;
 }
