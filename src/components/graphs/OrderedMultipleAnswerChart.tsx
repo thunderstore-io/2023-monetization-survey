@@ -69,6 +69,7 @@ export function OrderedMultipleAnswerChart(
   return (
     <Chart
       answerGroups={data}
+      orderByPercentage={false}
       totalOverride={totalOverride && data[0] ? data[0].total : undefined}
     ></Chart>
   );

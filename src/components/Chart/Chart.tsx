@@ -13,6 +13,7 @@ interface ChartProps {
     direction: string | "vertical" | "horizontal";
   }[];
   totalOverride?: number;
+  orderByPercentage?: boolean;
   children?: ReactNode;
 }
 
@@ -21,7 +22,7 @@ interface CustomCSS extends CSSProperties {
 }
 
 export function Chart(props: ChartProps) {
-  const { answerGroups, totalOverride } = props;
+  const { answerGroups, totalOverride, orderByPercentage = true } = props;
   return (
     <>
       {totalOverride ? (
@@ -53,9 +54,11 @@ export function Chart(props: ChartProps) {
             )}
             <div className={styles.chart_items}>
               {Object.keys(
-                answerGroups[groupID].answerSet.sort(
-                  (a, b) => b.count - a.count
-                )
+                orderByPercentage
+                  ? answerGroups[groupID].answerSet.sort(
+                      (a, b) => b.count - a.count
+                    )
+                  : answerGroups[groupID].answerSet
               ).map((k, i) => (
                 <div
                   key={`${groupK}_${answerGroups[groupID].answerSet[i].answerText}`}
