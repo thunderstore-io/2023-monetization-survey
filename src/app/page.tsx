@@ -20,7 +20,6 @@ import {
   SubscriptionFeatures,
 } from "@/data/types";
 import { useState } from "react";
-import { Question } from "@/components/Question/Question";
 import { OrderedMultipleAnswerChart } from "@/components/graphs/OrderedMultipleAnswerChart";
 import { DynamicAnswerChart } from "@/components/graphs/DynamicAnswerChart";
 import { DynamicNumberAnswerChart } from "@/components/graphs/DynamicNumberAnswerChart";
@@ -54,139 +53,127 @@ export default function Home() {
         <main className={styles.main}>
           <div className={styles.container}>
             <div className={styles.questions}>
-              <Question question="Are you a mod creator?">
-                <YesNoChart dataKey="isModder" />
-              </Question>
+              <YesNoChart
+                sectionTitle="Are you a mod creator?"
+                dataKey="isModder"
+              />
 
-              <Question question="Which platforms do you use as a mod creator?">
-                <MultipleAnswerChart
-                  {...ModdingPlatform}
-                  dataKey="platformsUsedAsModder"
-                  direction="horizontal"
-                />
-              </Question>
+              <MultipleAnswerChart
+                {...ModdingPlatform}
+                sectionTitle="Which platforms do you use as a mod creator?"
+                dataKey="platformsUsedAsModder"
+                direction="horizontal"
+              />
 
-              <Question question='Why do you use "Other" as a mod creator?'>
-                <DynamicAnswerChart
-                  dataKey="platformsUseReasonAsModderCategory"
-                  direction="horizontal"
-                />
-              </Question>
+              <DynamicAnswerChart
+                sectionTitle='Why do you use "Other" as a mod creator?'
+                dataKey="platformsUseReasonAsModderCategory"
+                direction="horizontal"
+              />
 
-              <Question question="Which platforms do you use as an end-user?">
-                <MultipleAnswerChart
-                  {...ModdingPlatform}
-                  dataKey="platformsUsedAsUser"
-                  direction="horizontal"
-                />
-              </Question>
+              <MultipleAnswerChart
+                {...ModdingPlatform}
+                sectionTitle="Which platforms do you use as an end-user?"
+                dataKey="platformsUsedAsUser"
+                direction="horizontal"
+              />
 
-              <Question question="Why do you use ___ as an end user?">
-                <DynamicAnswerChart
-                  dataKey="platformsUseReasonAsUserCategory"
-                  direction="horizontal"
-                />
-              </Question>
+              <DynamicAnswerChart
+                sectionTitle="Why do you use ___ as an end user?"
+                dataKey="platformsUseReasonAsUserCategory"
+                direction="horizontal"
+              />
 
-              <Question question="Have you supported mod creators directly?">
-                <SingleAnswerChart
-                  {...CreatorSupport}
-                  dataKey="hasSupportedCreators"
-                  direction="horizontal"
-                />
-              </Question>
+              <SingleAnswerChart
+                {...CreatorSupport}
+                sectionTitle="Have you supported mod creators directly?"
+                dataKey="hasSupportedCreators"
+                direction="horizontal"
+              />
 
-              <Question question="One-off payments: How much have you donated per month on average?">
-                <SingleAnswerChart
-                  {...PaymentSize}
-                  dataKey="oneOffMonthlyDonationAverage"
-                  direction="horizontal"
-                />
-              </Question>
+              <SingleAnswerChart
+                {...PaymentSize}
+                sectionTitle="One-off payments: How much have you donated per month on average?"
+                dataKey="oneOffMonthlyDonationAverage"
+                direction="horizontal"
+              />
 
-              <Question question="Recurring payments: How much have you donated per month on average?">
-                <SingleAnswerChart
-                  {...PaymentSize}
-                  dataKey="recurringMonthlyDonationAverage"
-                  direction="horizontal"
-                />
-              </Question>
+              <SingleAnswerChart
+                {...PaymentSize}
+                sectionTitle="Recurring payments: How much have you donated per month on average?"
+                dataKey="recurringMonthlyDonationAverage"
+                direction="horizontal"
+              />
 
-              <Question question="How much would you be willing to donate per month?">
-                <SingleAnswerChart
-                  {...PaymentSize}
-                  dataKey="willingToDonatePerMonth"
-                  direction="horizontal"
-                />
-              </Question>
+              <SingleAnswerChart
+                {...PaymentSize}
+                sectionTitle="How much would you be willing to donate per month?"
+                dataKey="willingToDonatePerMonth"
+                direction="horizontal"
+              />
 
-              <Question question='Why did you choose "No" for supporting mod creators?'>
-                <SingleAnswerChart
-                  {...DonateUnwillingnessReason}
-                  dataKey="reasonForNotWillingToDonate"
-                  direction="horizontal"
-                />
-              </Question>
+              <SingleAnswerChart
+                {...DonateUnwillingnessReason}
+                sectionTitle='Why did you choose "No" for supporting mod creators?'
+                dataKey="reasonForNotWillingToDonate"
+                direction="horizontal"
+              />
 
-              <Question question='Responses for choosing "Other" for not supporting mod creators:'>
-                <DynamicAnswerChart
-                  dataKey="reasonForNotWillingToDonateOtherCategory"
-                  direction="horizontal"
-                />
-              </Question>
+              <DynamicAnswerChart
+                sectionTitle='Responses for choosing "Other" for not supporting mod creators:'
+                dataKey="reasonForNotWillingToDonateOtherCategory"
+                direction="horizontal"
+              />
 
-              <Question question="If it was possible, would you like to create mods as a profession?">
-                <MultipleAnswerChart
-                  {...ModdingProfessionReply}
-                  dataKey="interstInModdingProfession"
-                  direction="horizontal"
-                />
-              </Question>
+              <MultipleAnswerChart
+                {...ModdingProfessionReply}
+                sectionTitle="If it was possible, would you like to create mods as a profession?"
+                dataKey="interstInModdingProfession"
+                direction="horizontal"
+              />
 
-              <Question question='Responses for choosing "Other" in creating mods as a profession:'>
-                <DynamicAnswerChart
-                  dataKey="interstInModdingProfessionOtherCategory"
-                  direction="horizontal"
-                />
-              </Question>
+              <DynamicAnswerChart
+                sectionTitle='Responses for choosing "Other" in creating mods as a profession:'
+                dataKey="interstInModdingProfessionOtherCategory"
+                direction="horizontal"
+              />
 
-              <Question question="Which of the following monetization models do you consider acceptable?">
-                <MultipleAnswerChart
-                  {...MonetizationModels}
-                  dataKey="acceptableMonetizationModels"
-                  direction="horizontal"
-                />
-              </Question>
+              <MultipleAnswerChart
+                {...MonetizationModels}
+                sectionTitle="Which of the following monetization models do you consider acceptable?"
+                dataKey="acceptableMonetizationModels"
+                direction="horizontal"
+              />
 
-              <Question question="How would you prefer a premium subscription to look like?">
-                <OrderedMultipleAnswerChart
-                  {...SubscriptionFeatures}
-                  dataKey="subscriptionFeaturesPreferenceRanking"
-                  direction="vertical"
-                />
-              </Question>
+              <OrderedMultipleAnswerChart
+                {...SubscriptionFeatures}
+                sectionTitle="How would you prefer a premium subscription to look like?"
+                dataKey="subscriptionFeaturesPreferenceRanking"
+                direction="vertical"
+              />
 
-              <Question question="What would you consider a fair price for a monthly premium subscription?">
-                <DynamicNumberAnswerChart
-                  dataKey="subscriptionFairPrice"
-                  direction="horizontal"
-                />
-              </Question>
+              <DynamicNumberAnswerChart
+                sectionTitle="What would you consider a fair price for a monthly premium subscription?"
+                dataKey="subscriptionFairPrice"
+                direction="horizontal"
+              />
 
-              <Question question="When you consider purchasing a subscription, what is the main factor you base your decision on?">
-                <DynamicAnswerChart
-                  dataKey="subscriptionDecisionMainFactorCategory"
-                  direction="horizontal"
-                />
-              </Question>
+              <DynamicAnswerChart
+                sectionTitle="When you consider purchasing a subscription, what is the main factor you base your decision on?"
+                dataKey="subscriptionDecisionMainFactorCategory"
+                direction="horizontal"
+              />
 
-              <Question question="If a premium subscription could be used to support mod creators and tool development, would you consider purchasing one?">
-                <YesNoChart dataKey="subscriptionConsiderationWillingness" />
-              </Question>
+              <YesNoChart
+                sectionTitle="If a premium subscription could be used to support mod creators and tool development, would you consider purchasing one?"
+                dataKey="subscriptionConsiderationWillingness"
+              />
 
-              <Question question="One last question! How old are you?">
-                <SingleAnswerChart {...AgeGroup} dataKey="ageGroup" />
-              </Question>
+              <SingleAnswerChart
+                {...AgeGroup}
+                sectionTitle="One last question! How old are you?"
+                dataKey="ageGroup"
+              />
             </div>
           </div>
         </main>

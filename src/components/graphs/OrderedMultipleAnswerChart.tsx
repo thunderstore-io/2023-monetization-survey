@@ -4,12 +4,12 @@ import React, { useMemo } from "react";
 import { useDataContext } from "@/components/DataContext";
 import { Chart } from "../Chart/Chart";
 import { IDataEntry } from "@/data/types";
-import { Question } from "../Question/Question";
+import { Question, Section } from "../Section/Section";
 
 interface OrderedMultipleAnswerChartProps {
   dataKey: keyof IDataEntry;
   direction?: string | "vertical" | "horizontal";
-  question?: string;
+  sectionTitle?: string;
 }
 
 export function OrderedMultipleAnswerChart(
@@ -18,7 +18,7 @@ export function OrderedMultipleAnswerChart(
   const {
     ["dataKey"]: dataKey,
     ["direction"]: direction,
-    ["question"]: question,
+    ["sectionTitle"]: sectionTitle,
   } = props;
   const context = useDataContext();
   const data = useMemo(() => {
@@ -66,11 +66,16 @@ export function OrderedMultipleAnswerChart(
     (answerGroup) => answerGroup.total % data[0].total === 0
   );
 
-  return (
-    <Chart
-      answerGroups={data}
-      orderByPercentage={false}
-      totalOverride={totalOverride && data[0] ? data[0].total : undefined}
-    ></Chart>
-  );
+  if (sectionTitle) {
+    return (
+      <Section
+        title={sectionTitle}
+        totalResponses={totalOverride && data[0] ? data[0].total : undefined}
+      >
+        <Chart answerGroups={data} orderByPercentage={false}></Chart>
+      </Section>
+    );
+  } else {
+    return <Chart answerGroups={data} orderByPercentage={false}></Chart>;
+  }
 }
