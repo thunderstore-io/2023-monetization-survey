@@ -1,16 +1,16 @@
-.filters {
+.root {
   display:flex;
   flex-direction:column;
   gap:2rem;
 }
 
-.filters__section {
+.section {
   display:flex;
   flex-direction:column;
   gap:1rem;
 }
 
-.filters__row {
+.row {
   display:flex;
   align-items:center;
   gap:1rem;

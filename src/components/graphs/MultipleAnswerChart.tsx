@@ -4,19 +4,19 @@ import React, { useMemo } from "react";
 import { useDataContext } from "@/components/DataContext";
 import { Chart } from "../Chart/Chart";
 import { IDataEntry } from "@/data/types";
-import { Question } from "../Question/Question";
+import { Section } from "../Section/Section";
 
 interface MultipleAnswerChartProps {
   dataKey: keyof IDataEntry;
   direction?: string | "vertical" | "horizontal";
-  question?: string;
+  sectionTitle?: string;
 }
 
 export function MultipleAnswerChart(props: MultipleAnswerChartProps) {
   const {
     ["dataKey"]: dataKey,
     ["direction"]: direction,
-    ["question"]: question,
+    ["sectionTitle"]: sectionTitle,
     ...newProps
   } = props;
   const context = useDataContext();
@@ -55,5 +55,13 @@ export function MultipleAnswerChart(props: MultipleAnswerChartProps) {
     ];
   }, [context.rows]);
 
-  return <Chart answerGroups={data}></Chart>;
+  if (sectionTitle) {
+    return (
+      <Section title={sectionTitle} totalResponses={data[0].total}>
+        <Chart answerGroups={data}></Chart>
+      </Section>
+    );
+  } else {
+    return <Chart answerGroups={data}></Chart>;
+  }
 }
