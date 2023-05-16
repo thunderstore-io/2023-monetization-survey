@@ -1,7 +1,7 @@
 .root {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 .items {
@@ -58,6 +58,11 @@
 .subquestion:empty {
   display: none;
 }
+@media (min-width:38rem) {
+  .subquestion {
+    font-size:1.2rem;
+  }
+}
 
 .item__value {
   white-space: nowrap;
@@ -73,6 +78,11 @@
   color: hsl(var(--text-color--tertiary));
   font-weight: 400;
   font-size: 0.75rem;
+}
+@media (max-width:34rem) {
+  .item__count {
+    display:none;
+  }
 }
 
 .item__percentage {

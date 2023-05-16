@@ -23,6 +23,11 @@
   font-size: 1.4rem;
   font-weight: 700;
 }
+@media (min-width:38rem) {
+  .title {
+    font-size:1.8rem;
+  }
+}
 
 .total {
   display: flex;
@@ -33,5 +38,5 @@
 .body {
   display: flex;
   flex-direction: column;
-  gap: 5rem;
+  gap: 4rem;
 }
