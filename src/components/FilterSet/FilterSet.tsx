@@ -32,13 +32,13 @@ function toggleAgeGroupFilter(props: toggleAgeGroupFilterProps) {
 export function FilterSet() {
   const context = useDataContext();
   return (
-    <div className={styles.filters}>
+    <div className={styles.root}>
       <div
-        className={`${styles["filters__section"]} ${styles["filters__users"]}`}
+        className={styles.section}
       >
-        <h4 className={styles.filters__section__title}>User Groups</h4>
+        <h4 className={styles.section__title}>User Groups</h4>
 
-        <div className={styles.filters__row}>
+        <div className={styles.row}>
           <ToggleGroup.Root
             className={styles.toggleGroup}
             type="single"
@@ -74,12 +74,10 @@ export function FilterSet() {
         </div>
       </div>
 
-      <div
-        className={`${styles["filters__section"]} ${styles["filters__age"]}`}
-      >
-        <h4 className={styles.filters__section__title}>Age Groups</h4>
+      <div className={styles.section}>
+        <h4 className={styles.section__title}>Age Groups</h4>
 
-        <div className={styles.filters__row}>
+        <div className={styles.row}>
           <label
             className={styles.label}
             htmlFor={`${AgeGroup._13_18}-switch`}
@@ -100,7 +98,7 @@ export function FilterSet() {
           ></Switch.Root>
         </div>
 
-        <div className={styles.filters__row}>
+        <div className={styles.row}>
           <label
             className={styles.label}
             htmlFor={`${AgeGroup._19_25}-switch`}
@@ -121,7 +119,7 @@ export function FilterSet() {
           ></Switch.Root>
         </div>
 
-        <div className={styles.filters__row}>
+        <div className={styles.row}>
           <label
             className={styles.label}
             htmlFor={`${AgeGroup._26_32}-switch`}
@@ -142,7 +140,7 @@ export function FilterSet() {
           ></Switch.Root>
         </div>
 
-        <div className={styles.filters__row}>
+        <div className={styles.row}>
           <label
             className={styles.label}
             htmlFor={`${AgeGroup._33}-switch`}
@@ -163,7 +161,7 @@ export function FilterSet() {
           ></Switch.Root>
         </div>
 
-        <div className={styles.filters__row}>
+        <div className={styles.row}>
           <label
             className={styles.label}
             htmlFor={`${AgeGroup.UNDISCLOSED}-switch`}

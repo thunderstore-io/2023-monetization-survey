@@ -10,18 +10,16 @@ interface SectionProps {
 export function Section(props: SectionProps) {
   const { title, totalResponses, children } = props;
   return (
-    <div className={styles.section}>
-      <div className={styles.section__header}>
-        <div className={styles.section__title}>{title}</div>
+    <div className={styles.root}>
+      <div className={styles.header}>
+        <div className={styles.title}>{title}</div>
+        {totalResponses ? (
+          <div className={styles.total}>Total responses: {totalResponses}</div>
+        ) : (
+          <></>
+        )}
       </div>
-      {totalResponses ? (
-        <div className={styles.section_totalResponses}>
-          Total responses: {totalResponses}
-        </div>
-      ) : (
-        <></>
-      )}
-      <div className={styles.section__body}>{children}</div>
+      <div className={styles.body}>{children}</div>
     </div>
   );
 }

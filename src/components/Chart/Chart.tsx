@@ -28,16 +28,16 @@ export function Chart(props: ChartProps) {
         return answerGroups[groupID].total > 0 ? (
           <div
             key={groupK}
-            className={`${styles["chart"]} ${
+            className={`${styles["root"]} ${
               answerGroups[groupID].direction === "vertical"
-                ? styles["chart__vertical"]
-                : styles["chart__horizontal"]
+                ? styles["vertical"]
+                : styles["horizontal"]
             }`}
           >
-            <div className={styles.chart_subquestion}>
+            <div className={styles.subquestion}>
               {answerGroups[groupID].subQuestion}
             </div>
-            <div className={styles.chart_items}>
+            <div className={styles.items}>
               {Object.keys(
                 orderByPercentage
                   ? answerGroups[groupID].answerSet.sort(
@@ -47,33 +47,33 @@ export function Chart(props: ChartProps) {
               ).map((k, i) => (
                 <div
                   key={`${groupK}_${answerGroups[groupID].answerSet[i].answerText}`}
-                  className={styles.chart_item}
+                  className={styles.item}
                   style={
                     {
                       "--p": answerGroups[groupID].answerSet[i].percentage,
                     } as CustomCSS
                   }
                 >
-                  <div className={styles.chart_item__header}>
-                    <div className={styles.chart_item__title}>
+                  <div className={styles.item__header}>
+                    <div className={styles.item__title}>
                       {answerGroups[groupID].answerSet[i].answerText}
                     </div>
-                    <div className={styles.chart_item__value}>
-                      <div className={styles.chart_item__count}>
+                    <div className={styles.item__value}>
+                      <div className={styles.item__count}>
                         {answerGroups[groupID].answerSet[i].count} resp.{" "}
                       </div>
-                      <div className={styles.chart_item__percentage}>
+                      <div className={styles.item__percentage}>
                         {answerGroups[groupID].answerSet[i].percentage}%
                       </div>
                     </div>
                   </div>
-                  <div className={styles.chart_item__bar}></div>
+                  <div className={styles.item__bar}></div>
                 </div>
               ))}
             </div>
           </div>
         ) : (
-          <div key={groupK} className={styles.chart_empty}>
+          <div key={groupK} className={styles.empty}>
             No responses with the selected filters
           </div>
         );
