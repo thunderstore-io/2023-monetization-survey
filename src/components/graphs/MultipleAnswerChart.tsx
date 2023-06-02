@@ -34,9 +34,9 @@ export function MultipleAnswerChart(props: MultipleAnswerChartProps) {
     // Count stuff
     for (const entry of context.rows) {
       if (!entry[dataKey]) continue;
+      result.total += 1;
       Object.keys(entry[dataKey]).map((k) => {
         result["answers"][entry[dataKey][k]] += 1;
-        result.total += 1;
       });
     }
 
