@@ -33,9 +33,7 @@ export function FilterSet() {
   const context = useDataContext();
   return (
     <div className={styles.root}>
-      <div
-        className={styles.section}
-      >
+      <div className={styles.section}>
         <h4 className={styles.section__title}>User Groups</h4>
 
         <div className={styles.row}>

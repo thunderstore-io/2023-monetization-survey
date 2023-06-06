@@ -1,83 +1,72 @@
 :root {
-  --surface-0:240 30% 10%;
-  --surface-1:240 30% 14%;
-  --surface-2:240 33% 19%;
-  --surface-3:240 34% 26%;
-  --surface-4:252 50% 40%;
-
-  --text-color--primary:    243 10% 96%;
-  --text-color--secondary:  240 32% 86%;
-  --text-color--tertiary:   240 25% 69%;
-  --text-color--accent:     243 100% 88%;
-
+  --surface-0: 240 30% 10%;
+  --surface-1: 240 30% 14%;
+  --surface-2: 240 33% 19%;
+  --surface-3: 240 34% 26%;
+  --surface-4: 252 50% 40%;
+  --text-color--primary: 243 10% 96%;
+  --text-color--secondary: 240 32% 86%;
+  --text-color--tertiary: 240 25% 69%;
+  --text-color--accent: 243 100% 88%;
   --color--cyber-green-5: 158 80% 57%;
   --color--cyber-green-9: 158 6% 11%;
   --color--cyber-green-10: 161 79% 5%;
-
-  --border-color--default:hsl(243 27% 28%);
-  --border-color--highlight:hsl(243 28% 49%);
-
-  --border-radius--default:.5rem;
-
-  --box-shadow--default:0 12px 24px hsl(0 0% 0% / .65);
-
-  /**/
-
-  --body--bg-color:hsl(var(--surface-0));
-  --body--text-color:hsl(var(--text-color--primary));
-
-  --header-h:3.5rem;
-  --sidebar-w:18rem;
+  --border-color--default: hsl(243deg 27% 28%);
+  --border-color--highlight: hsl(243deg 28% 49%);
+  --border-radius--default: 0.5rem;
+  --box-shadow--default: 0 12px 24px hsl(0deg 0% 0% / 0.65);
+  --body--bg-color: hsl(var(--surface-0));
+  --body--text-color: hsl(var(--text-color--primary));
+  --header-h: 3.5rem;
+  --sidebar-w: 18rem;
 }
 
-/**/
-
 * {
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html,
 body {
-  max-width:100vw;
-  overflow-x:hidden;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 body {
-  background-color:var(--body--bg-color);
-  color:var(--body--text-color);
-  line-height:1.5;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--body--text-color);
+  line-height: 1.5;
+  background-color: var(--body--bg-color);
 }
 
 a {
-  color:inherit;
-  text-decoration:none;
+  color: inherit;
+  text-decoration: none;
 }
 
 button {
-  all:unset;
+  all: unset;
 }
 
-@media (prefers-color-scheme:dark) {
+@media (prefers-color-scheme: dark) {
   html {
-    color-scheme:dark;
+    color-scheme: dark;
   }
 }
 
 .icon {
-  width:1em;
-  height:1em;
+  width: 1em;
+  height: 1em;
 }
 
-.visually-hidden:not(:focus):not(:active):not(:focus-within) {
-  clip-path:inset(50%);
-  height:1px;
-  overflow:hidden;
-  position:absolute;
-  white-space:nowrap; 
-  width:1px;
+.visuallyHidden:not(:focus, :active, :focus-within) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
 }

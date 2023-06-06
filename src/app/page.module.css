@@ -5,9 +5,9 @@
 
 .container {
   flex: 1;
+  flex: 0 0 100%;
   width: 100%;
   max-width: 46rem;
-  flex:0 0 100%;
 }
 
 .main {
@@ -35,8 +35,8 @@
 
 .sidebar {
   position: fixed;
+  top: var(--header-h);
   right: 0;
-  top:var(--header-h);
   bottom: 0;
   z-index: 999;
   display: flex;
@@ -46,15 +46,15 @@
   padding: 2rem;
   border-left: 1px solid var(--border-color--default);
   background-color: hsl(var(--surface-0));
+  transition: translate 0.16s;
   scale: var(--scale) 1;
   translate: 100% 0;
-  transition: translate .16s;
 }
 
 @media (min-width: 60rem) {
   .sidebar {
     translate: 0;
-    transition:none;
+    transition: none;
   }
 }
 
@@ -78,7 +78,7 @@
   background-color: hsl(var(--surface-3));
   box-shadow: var(--box-shadow--default);
   cursor: pointer;
-  transition: all .16s;
+  transition: all 0.16s;
   translate: calc(-100% - var(--t)) calc(0rem - var(--t));
   user-select: none;
 }
@@ -102,8 +102,9 @@
   flex-direction: column;
   gap: 2rem;
 }
-@media (min-width:38rem) {
+
+@media (min-width: 38rem) {
   .questions {
-    gap:4rem;
+    gap: 4rem;
   }
 }
