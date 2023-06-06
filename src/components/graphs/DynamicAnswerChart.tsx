@@ -3,30 +3,31 @@
 import React, { useMemo } from "react";
 import { useDataContext } from "@/components/DataContext";
 import { Chart } from "../Chart/Chart";
-import { IDataEntry } from "@/data/types";
+import { DynamicCategory, IDataEntry } from "@/data/types";
 import { Section } from "../Section/Section";
+import { KeyOfType } from "@/types";
 
 interface DynamicAnswerChartProps {
-  dataKey: keyof IDataEntry;
-  direction?: string | "vertical" | "horizontal";
+  dataKey: KeyOfType<IDataEntry, DynamicCategory[] | undefined | null>;
+  direction: "vertical" | "horizontal";
   sectionTitle?: string;
 }
 
 export function DynamicAnswerChart(props: DynamicAnswerChartProps) {
-  const {
-    ["dataKey"]: dataKey,
-    ["direction"]: direction,
-    ["sectionTitle"]: sectionTitle,
-  } = props;
+  const { dataKey, direction, sectionTitle } = props;
   const context = useDataContext();
+
   const data = useMemo(() => {
+    const rows = context.rows
+      .map((x) => x[dataKey])
+      .filter((x): x is DynamicCategory[] => !!x);
+
     const result: {
       [key: string]: { description: string; count: number };
     } = {};
-    let total = 0;
-    for (const entry of context.rows) {
-      if (!entry[dataKey]) continue;
-      for (const categoryEntry of entry[dataKey]) {
+
+    for (const row of rows) {
+      for (const categoryEntry of row) {
         if (!result[categoryEntry.id]) {
           result[categoryEntry.id] = {
             description: categoryEntry.description,
@@ -36,17 +37,16 @@ export function DynamicAnswerChart(props: DynamicAnswerChartProps) {
           result[categoryEntry.id].count += 1;
         }
       }
-      total += 1;
     }
 
     return [
       {
         direction: direction,
-        total: total,
+        total: rows.length,
         answerSet: Object.keys(result).map((k) => ({
           answerText: result[k].description,
           count: result[k].count,
-          percentage: Math.round((result[k].count / total) * 100),
+          percentage: Math.round((result[k].count / rows.length) * 100),
         })),
       },
     ];

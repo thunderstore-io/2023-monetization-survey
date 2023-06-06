@@ -5,41 +5,38 @@ import { useDataContext } from "@/components/DataContext";
 import { Chart } from "../Chart/Chart";
 import { IDataEntry } from "@/data/types";
 import { Section } from "../Section/Section";
+import _ from "lodash";
 
 interface SingleAnswerChartProps {
   dataKey: keyof IDataEntry;
-  direction?: string | "vertical" | "horizontal";
+  direction: "vertical" | "horizontal";
   sectionTitle?: string;
+  categories: { [key: string]: string };
 }
 
 export function SingleAnswerChart(props: SingleAnswerChartProps) {
-  const {
-    ["dataKey"]: dataKey,
-    ["direction"]: direction,
-    ["sectionTitle"]: sectionTitle,
-    ...newProps
-  } = props;
+  const { dataKey, direction, sectionTitle, categories } = props;
+
   const context = useDataContext();
   const data = useMemo(() => {
-    const result: {
-      [key: string]: { count: number };
-    } = {};
-    Object.keys(newProps).map((k) => (result[newProps[k]] = { count: 0 }));
-    let total = 0;
-    for (const entry of context.rows) {
-      if (!entry[dataKey]) continue;
-      result[entry[dataKey]].count += 1;
-      total += 1;
-    }
+    const values = context.rows.map((x) => x[dataKey]).filter((x) => !!x);
+    const counts = {
+      ..._.transform(
+        categories,
+        (res, val) => (res[val] = 0),
+        {} as { [k: string]: number }
+      ),
+      ..._.countBy(values),
+    };
 
     return [
       {
         direction: direction,
-        total: total,
-        answerSet: Object.keys(result).map((k) => ({
-          answerText: k,
-          count: result[k].count,
-          percentage: Math.round((result[k].count / total) * 100),
+        total: values.length,
+        answerSet: _.keys(counts).map((key) => ({
+          answerText: key,
+          count: counts[key],
+          percentage: Math.round((counts[key] / values.length) * 100),
         })),
       },
     ];

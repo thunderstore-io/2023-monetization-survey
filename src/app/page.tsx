@@ -59,7 +59,7 @@ export default function Home() {
               />
 
               <MultipleAnswerChart
-                {...ModdingPlatform}
+                categories={ModdingPlatform}
                 sectionTitle="Which platforms do you use as a mod creator?"
                 dataKey="platformsUsedAsModder"
                 direction="horizontal"
@@ -72,7 +72,7 @@ export default function Home() {
               />
 
               <MultipleAnswerChart
-                {...ModdingPlatform}
+                categories={ModdingPlatform}
                 sectionTitle="Which platforms do you use as an end-user?"
                 dataKey="platformsUsedAsUser"
                 direction="horizontal"
@@ -85,35 +85,35 @@ export default function Home() {
               />
 
               <SingleAnswerChart
-                {...CreatorSupport}
+                categories={CreatorSupport}
                 sectionTitle="Have you supported mod creators directly?"
                 dataKey="hasSupportedCreators"
                 direction="horizontal"
               />
 
               <SingleAnswerChart
-                {...PaymentSize}
+                categories={PaymentSize}
                 sectionTitle="One-off payments: How much have you donated per month on average?"
                 dataKey="oneOffMonthlyDonationAverage"
                 direction="horizontal"
               />
 
               <SingleAnswerChart
-                {...PaymentSize}
+                categories={PaymentSize}
                 sectionTitle="Recurring payments: How much have you donated per month on average?"
                 dataKey="recurringMonthlyDonationAverage"
                 direction="horizontal"
               />
 
               <SingleAnswerChart
-                {...PaymentSize}
+                categories={PaymentSize}
                 sectionTitle="How much would you be willing to donate per month?"
                 dataKey="willingToDonatePerMonth"
                 direction="horizontal"
               />
 
               <SingleAnswerChart
-                {...DonateUnwillingnessReason}
+                categories={DonateUnwillingnessReason}
                 sectionTitle='Why did you choose "No" for supporting mod creators?'
                 dataKey="reasonForNotWillingToDonate"
                 direction="horizontal"
@@ -126,7 +126,7 @@ export default function Home() {
               />
 
               <MultipleAnswerChart
-                {...ModdingProfessionReply}
+                categories={ModdingProfessionReply}
                 sectionTitle="If it was possible, would you like to create mods as a profession?"
                 dataKey="interstInModdingProfession"
                 direction="horizontal"
@@ -139,7 +139,7 @@ export default function Home() {
               />
 
               <MultipleAnswerChart
-                {...MonetizationModels}
+                categories={MonetizationModels}
                 sectionTitle="Which of the following monetization models do you consider acceptable?"
                 dataKey="acceptableMonetizationModels"
                 direction="horizontal"
@@ -170,9 +170,10 @@ export default function Home() {
               />
 
               <SingleAnswerChart
-                {...AgeGroup}
+                categories={AgeGroup}
                 sectionTitle="One last question! How old are you?"
                 dataKey="ageGroup"
+                direction="horizontal"
               />
             </div>
           </div>

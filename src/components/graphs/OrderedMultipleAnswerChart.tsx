@@ -4,74 +4,53 @@ import React, { useMemo } from "react";
 import { useDataContext } from "@/components/DataContext";
 import { Chart } from "../Chart/Chart";
 import { IDataEntry } from "@/data/types";
-import { Question, Section } from "../Section/Section";
+import { Section } from "../Section/Section";
+import _ from "lodash";
+import { KeyOfType } from "@/types";
 
 interface OrderedMultipleAnswerChartProps {
-  dataKey: keyof IDataEntry;
-  direction?: string | "vertical" | "horizontal";
+  dataKey: KeyOfType<IDataEntry, string[]>;
+  direction: "vertical" | "horizontal";
   sectionTitle?: string;
 }
 
 export function OrderedMultipleAnswerChart(
   props: OrderedMultipleAnswerChartProps
 ) {
-  const {
-    ["dataKey"]: dataKey,
-    ["direction"]: direction,
-    ["sectionTitle"]: sectionTitle,
-  } = props;
+  const { dataKey, direction, sectionTitle } = props;
   const context = useDataContext();
   const data = useMemo(() => {
-    const result: {
-      [key: `string${string}`]: {
-        orderedCount: { [key: number]: number };
-        total: number;
-      };
-    } = {};
+    const rows = context.rows.map((x) => x[dataKey]).filter((x) => !!x);
+    const features = rows[0];
+    if (!features) return [];
 
-    // Count stuff
-    for (const entry of context.rows) {
-      if (!entry[dataKey]) continue;
-      Object.keys(entry[dataKey]).map((featureEntry, index: number) => {
-        if (!result[entry[dataKey][featureEntry]]) {
-          result[entry[dataKey][featureEntry]] = { orderedCount: {}, total: 0 };
-          result[entry[dataKey][featureEntry]]["orderedCount"][index] = 1;
-        } else {
-          if (!result[entry[dataKey][featureEntry]]["orderedCount"][index]) {
-            result[entry[dataKey][featureEntry]]["orderedCount"][index] = 1;
-          } else {
-            result[entry[dataKey][featureEntry]]["orderedCount"][index] += 1;
-          }
-        }
-        result[entry[dataKey][featureEntry]]["total"] += 1;
-      });
-    }
+    const result = _.transform(
+      rows,
+      (result, row) => {
+        row.map((feature, ranking) => {
+          result[feature][ranking] += 1;
+        });
+      },
+      Object.fromEntries(
+        features.map((x) => [x, Array(features.length).fill(0)])
+      )
+    );
 
-    return Object.keys(result).map((k) => ({
+    return Object.keys(result).map((feature) => ({
       direction: direction,
-      subQuestion: k,
-      total: result[k].total,
-      answerSet: Object.keys(result[k]["orderedCount"]).map((orderNumber) => ({
-        answerText: Number(orderNumber) + 1,
-        count: result[k]["orderedCount"][orderNumber],
-        percentage: Math.round(
-          (result[k]["orderedCount"][orderNumber] / result[k].total) * 100
-        ),
+      subQuestion: feature,
+      total: rows.length,
+      answerSet: result[feature].map((count, index) => ({
+        answerText: Number(index) + 1,
+        count: count,
+        percentage: Math.round((count / rows.length) * 100),
       })),
     }));
   }, [context.rows]);
 
-  // Check if the total amount of responses is the same in all answerGroups
-  const totalOverride = data.every(
-    (answerGroup) => answerGroup.total % data[0].total === 0
-  );
-
   if (sectionTitle) {
     return (
-      <Section
-        title={sectionTitle}
-        totalResponses={totalOverride && data[0] ? data[0].total : undefined}
-      >
+      <Section title={sectionTitle} totalResponses={data[0].total}>
         <Chart answerGroups={data} orderByPercentage={false}></Chart>
       </Section>
     );

@@ -4,9 +4,10 @@ import React, { useMemo } from "react";
 import { useDataContext } from "@/components/DataContext";
 import { Chart } from "../Chart/Chart";
 import { Section } from "../Section/Section";
+import { IDataEntry } from "@/data/types";
 
 interface YesNoChartProps {
-  dataKey: string;
+  dataKey: keyof IDataEntry;
   sectionTitle?: string;
 }
 
@@ -19,10 +20,12 @@ export function YesNoChart(props: YesNoChartProps) {
       no: { count: 0 },
     };
     for (const entry of context.rows) {
-      if (entry[props.dataKey]) {
+      if (entry[props.dataKey] === true) {
         result["yes"].count += 1;
-      } else {
+      } else if (entry[props.dataKey] === false) {
         result["no"].count += 1;
+      } else {
+        continue;
       }
       total += 1;
     }

@@ -13,11 +13,9 @@ export function Section(props: SectionProps) {
     <div className={styles.root}>
       <div className={styles.header}>
         <div className={styles.title}>{title}</div>
-        {totalResponses ? (
-          <div className={styles.total}>Total responses: {totalResponses}</div>
-        ) : (
-          <></>
-        )}
+        <div className={styles.total}>
+          Total responses: {totalResponses || 0}
+        </div>
       </div>
       <div className={styles.body}>{children}</div>
     </div>
