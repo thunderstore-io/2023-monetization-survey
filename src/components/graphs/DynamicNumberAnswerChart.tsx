@@ -6,20 +6,17 @@ import { Chart } from "../Chart/Chart";
 import { IDataEntry } from "@/data/types";
 import { Section } from "../Section/Section";
 import _ from "lodash";
-import { KeyOfType } from "@/types";
+import { BaseChartProps } from "@/components/graphs/Common";
+import { NotUnset } from "@/utils";
 
-interface DynamicNumberAnswerChartProps {
-  dataKey: KeyOfType<IDataEntry, number>;
-  direction: "vertical" | "horizontal";
-  sectionTitle?: string;
-}
-
-export function DynamicNumberAnswerChart(props: DynamicNumberAnswerChartProps) {
+export function DynamicNumberAnswerChart(
+  props: BaseChartProps<IDataEntry, number>
+) {
   const { dataKey, direction, sectionTitle } = props;
 
   const context = useDataContext();
   const data = useMemo(() => {
-    const values = context.rows.map((x) => x[dataKey]).filter((x) => !!x);
+    const values = context.rows.map((x) => x[dataKey]).filter(NotUnset);
     const counts = _.countBy(values);
 
     return [

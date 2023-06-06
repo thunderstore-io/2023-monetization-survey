@@ -5,22 +5,17 @@ import { useDataContext } from "@/components/DataContext";
 import { Chart } from "../Chart/Chart";
 import { DynamicCategory, IDataEntry } from "@/data/types";
 import { Section } from "../Section/Section";
-import { KeyOfType } from "@/types";
+import { BaseChartProps } from "@/components/graphs/Common";
+import { NotUnset } from "@/utils";
 
-interface DynamicAnswerChartProps {
-  dataKey: KeyOfType<IDataEntry, DynamicCategory[] | undefined | null>;
-  direction: "vertical" | "horizontal";
-  sectionTitle?: string;
-}
-
-export function DynamicAnswerChart(props: DynamicAnswerChartProps) {
+export function DynamicAnswerChart(
+  props: BaseChartProps<IDataEntry, DynamicCategory[]>
+) {
   const { dataKey, direction, sectionTitle } = props;
   const context = useDataContext();
 
   const data = useMemo(() => {
-    const rows = context.rows
-      .map((x) => x[dataKey])
-      .filter((x): x is DynamicCategory[] => !!x);
+    const rows = context.rows.map((x) => x[dataKey]).filter(NotUnset);
 
     const result: {
       [key: string]: { description: string; count: number };

@@ -6,21 +6,17 @@ import { Chart } from "../Chart/Chart";
 import { IDataEntry } from "@/data/types";
 import { Section } from "../Section/Section";
 import _ from "lodash";
-import { KeyOfType } from "@/types";
+import { CategoryChartProps } from "@/components/graphs/Common";
+import { NotUnset } from "@/utils";
 
-interface SingleAnswerChartProps {
-  dataKey: KeyOfType<IDataEntry, string | null | undefined>;
-  direction: "vertical" | "horizontal";
-  sectionTitle?: string;
-  categories: { [key: string]: string };
-}
-
-export function SingleAnswerChart(props: SingleAnswerChartProps) {
+export function SingleAnswerChart(
+  props: CategoryChartProps<IDataEntry, string>
+) {
   const { dataKey, direction, sectionTitle, categories } = props;
 
   const context = useDataContext();
   const data = useMemo(() => {
-    const values = context.rows.map((x) => x[dataKey]).filter((x) => !!x);
+    const values = context.rows.map((x) => x[dataKey]).filter(NotUnset);
     const counts = {
       ..._.transform(
         categories,

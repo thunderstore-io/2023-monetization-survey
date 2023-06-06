@@ -56,6 +56,7 @@ export default function Home() {
               <YesNoChart
                 sectionTitle="Are you a mod creator?"
                 dataKey="isModder"
+                direction="horizontal"
               />
 
               <MultipleAnswerChart
@@ -167,6 +168,7 @@ export default function Home() {
               <YesNoChart
                 sectionTitle="If a premium subscription could be used to support mod creators and tool development, would you consider purchasing one?"
                 dataKey="subscriptionConsiderationWillingness"
+                direction="horizontal"
               />
 
               <SingleAnswerChart

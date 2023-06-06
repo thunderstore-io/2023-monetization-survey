@@ -6,21 +6,16 @@ import { Chart } from "../Chart/Chart";
 import { IDataEntry } from "@/data/types";
 import { Section } from "../Section/Section";
 import _ from "lodash";
-import { KeyOfType } from "@/types";
-
-interface OrderedMultipleAnswerChartProps {
-  dataKey: KeyOfType<IDataEntry, string[]>;
-  direction: "vertical" | "horizontal";
-  sectionTitle?: string;
-}
+import { BaseChartProps } from "@/components/graphs/Common";
+import { NotUnset } from "@/utils";
 
 export function OrderedMultipleAnswerChart(
-  props: OrderedMultipleAnswerChartProps
+  props: BaseChartProps<IDataEntry, string[]>
 ) {
   const { dataKey, direction, sectionTitle } = props;
   const context = useDataContext();
   const data = useMemo(() => {
-    const rows = context.rows.map((x) => x[dataKey]).filter((x) => !!x);
+    const rows = context.rows.map((x) => x[dataKey]).filter(NotUnset);
     const features = rows[0];
     if (!features) return [];
 

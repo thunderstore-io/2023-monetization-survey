@@ -5,14 +5,9 @@ import { useDataContext } from "@/components/DataContext";
 import { Chart } from "../Chart/Chart";
 import { Section } from "../Section/Section";
 import { IDataEntry } from "@/data/types";
-import { KeyOfType } from "@/types";
+import { BaseChartProps } from "@/components/graphs/Common";
 
-interface YesNoChartProps {
-  dataKey: KeyOfType<IDataEntry, boolean | null | undefined>;
-  sectionTitle?: string;
-}
-
-export function YesNoChart(props: YesNoChartProps) {
+export function YesNoChart(props: BaseChartProps<IDataEntry, boolean>) {
   const context = useDataContext();
   const data = useMemo(() => {
     let total = 0;
@@ -39,7 +34,7 @@ export function YesNoChart(props: YesNoChartProps) {
           count: result[k].count,
           percentage: Math.round((result[k].count / total) * 100),
         })),
-        direction: "horizontal",
+        direction: props.direction,
       },
     ];
   }, [context.rows]);
