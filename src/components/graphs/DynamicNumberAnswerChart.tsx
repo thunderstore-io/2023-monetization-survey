@@ -6,9 +6,10 @@ import { Chart } from "../Chart/Chart";
 import { IDataEntry } from "@/data/types";
 import { Section } from "../Section/Section";
 import _ from "lodash";
+import { KeyOfType } from "@/types";
 
 interface DynamicNumberAnswerChartProps {
-  dataKey: keyof IDataEntry;
+  dataKey: KeyOfType<IDataEntry, number>;
   direction: "vertical" | "horizontal";
   sectionTitle?: string;
 }

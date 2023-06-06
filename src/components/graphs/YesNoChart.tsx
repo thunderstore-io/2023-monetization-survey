@@ -5,9 +5,10 @@ import { useDataContext } from "@/components/DataContext";
 import { Chart } from "../Chart/Chart";
 import { Section } from "../Section/Section";
 import { IDataEntry } from "@/data/types";
+import { KeyOfType } from "@/types";
 
 interface YesNoChartProps {
-  dataKey: keyof IDataEntry;
+  dataKey: KeyOfType<IDataEntry, boolean | null | undefined>;
   sectionTitle?: string;
 }
 

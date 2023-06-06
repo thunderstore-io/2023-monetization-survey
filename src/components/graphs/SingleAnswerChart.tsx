@@ -6,9 +6,10 @@ import { Chart } from "../Chart/Chart";
 import { IDataEntry } from "@/data/types";
 import { Section } from "../Section/Section";
 import _ from "lodash";
+import { KeyOfType } from "@/types";
 
 interface SingleAnswerChartProps {
-  dataKey: keyof IDataEntry;
+  dataKey: KeyOfType<IDataEntry, string | null | undefined>;
   direction: "vertical" | "horizontal";
   sectionTitle?: string;
   categories: { [key: string]: string };
