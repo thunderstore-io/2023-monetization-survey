@@ -108,3 +108,19 @@
     gap: 4rem;
   }
 }
+
+.links {
+  list-style-type: none;
+}
+
+.link {
+  color: #4fffc0;
+}
+
+.link:hover {
+  color: #1ccc8d;
+}
+
+.link:active {
+  color: #15996a;
+}

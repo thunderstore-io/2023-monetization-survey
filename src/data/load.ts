@@ -13,7 +13,7 @@ import {
 import { faker } from "@faker-js/faker";
 import _ from "lodash";
 
-import results from "./results.json";
+import results from "../../public/results.json";
 
 const PLATFORM_OPTIONS = [
   ModdingPlatform.THUNDERSTORE,
