@@ -5,9 +5,6 @@ const assetPrefix = isProd ? "/2023-monetization-survey" : "";
 const nextConfig = {
   output: "export",
   assetPrefix,
-  publicRuntimeConfig: {
-    assetPrefix,
-  },
   experimental: {
     appDir: true,
   },

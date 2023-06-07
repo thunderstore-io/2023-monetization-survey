@@ -5,10 +5,10 @@ import { FilterSet } from "@/components/FilterSet/FilterSet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSliders, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import getConfig from "next/config";
 
-const { publicRuntimeConfig } = getConfig();
-const resultsLink = `${publicRuntimeConfig.assetPrefix || ""}/results.json`;
+const isProd = process.env.NODE_ENV === "production";
+const assetPrefix = isProd ? "/2023-monetization-survey" : "";
+const resultsLink = `${assetPrefix}/results.json`;
 
 export const Sidebar = () => {
   const [sidebarActive, toggleSidebar] = useState(false);
