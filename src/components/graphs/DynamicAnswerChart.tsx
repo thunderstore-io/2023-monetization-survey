@@ -50,13 +50,9 @@ export function DynamicAnswerChart(props: BaseChartProps<DynamicCategoryData>) {
     ];
   }, [context.rows]);
 
-  if (sectionTitle) {
-    return (
-      <Section title={sectionTitle} totalResponses={data[0].total}>
-        <Chart answerGroups={data}></Chart>
-      </Section>
-    );
-  } else {
-    return <Chart answerGroups={data}></Chart>;
-  }
+  return (
+    <Section title={sectionTitle} totalResponses={data[0].total}>
+      <Chart answerGroups={data}></Chart>
+    </Section>
+  );
 }

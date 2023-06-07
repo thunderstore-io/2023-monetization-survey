@@ -38,13 +38,9 @@ export function YesNoChart(props: BaseChartProps<BooleanData>) {
     ];
   }, [context.rows]);
 
-  if (props.sectionTitle) {
-    return (
-      <Section title={props.sectionTitle} totalResponses={data[0].total}>
-        <Chart answerGroups={data}></Chart>
-      </Section>
-    );
-  } else {
-    return <Chart answerGroups={data}></Chart>;
-  }
+  return (
+    <Section title={props.sectionTitle} totalResponses={data[0].total}>
+      <Chart answerGroups={data}></Chart>
+    </Section>
+  );
 }

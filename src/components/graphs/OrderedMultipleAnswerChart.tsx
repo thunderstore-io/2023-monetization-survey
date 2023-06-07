@@ -45,13 +45,9 @@ export function OrderedMultipleAnswerChart(
     }));
   }, [context.rows]);
 
-  if (sectionTitle) {
-    return (
-      <Section title={sectionTitle} totalResponses={data[0].total}>
-        <Chart answerGroups={data} orderByPercentage={false}></Chart>
-      </Section>
-    );
-  } else {
-    return <Chart answerGroups={data} orderByPercentage={false}></Chart>;
-  }
+  return (
+    <Section title={sectionTitle} totalResponses={data[0].total}>
+      <Chart answerGroups={data} orderByPercentage={false}></Chart>
+    </Section>
+  );
 }
