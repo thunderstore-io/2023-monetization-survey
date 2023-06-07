@@ -116,6 +116,8 @@ export default function Home() {
               <DynamicNumberAnswerChart
                 sectionTitle="What would you consider a fair price for a monthly premium subscription?"
                 dataKey="subscriptionFairPrice"
+                direction="vertical"
+                bucketSize={4}
               />
 
               <DynamicAnswerChart

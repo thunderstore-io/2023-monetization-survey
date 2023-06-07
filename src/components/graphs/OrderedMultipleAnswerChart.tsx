@@ -16,10 +16,10 @@ export function OrderedMultipleAnswerChart(
 ) {
   const { dataKey, direction, sectionTitle } = props;
   const context = useDataContext();
-  const data = useMemo(() => {
+  const [count, data] = useMemo(() => {
     const rows = filterRows<CategoryData>(context.rows, dataKey);
     const features = rows[0];
-    if (!features) return [];
+    if (!features) return [0, []];
 
     const result = _.transform(
       rows,
@@ -33,20 +33,23 @@ export function OrderedMultipleAnswerChart(
       )
     );
 
-    return Object.keys(result).map((feature) => ({
-      direction: direction,
-      subQuestion: feature,
-      total: rows.length,
-      answerSet: result[feature].map((count, index) => ({
-        answerText: Number(index) + 1,
-        count: count,
-        percentage: Math.round((count / rows.length) * 100),
+    return [
+      rows.length,
+      Object.keys(result).map((feature) => ({
+        direction: direction,
+        subQuestion: feature,
+        total: rows.length,
+        answerSet: result[feature].map((count, index) => ({
+          answerText: Number(index) + 1,
+          count: count,
+          percentage: Math.round((count / rows.length) * 100),
+        })),
       })),
-    }));
+    ];
   }, [context.rows]);
 
   return (
-    <Section title={sectionTitle} totalResponses={data[0].total}>
+    <Section title={sectionTitle} totalResponses={count}>
       <Chart answerGroups={data} orderByPercentage={false}></Chart>
     </Section>
   );

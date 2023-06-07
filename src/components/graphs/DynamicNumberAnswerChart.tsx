@@ -11,16 +11,27 @@ import {
 
 type NumberData = ChartData<number>;
 
-export function DynamicNumberAnswerChart(props: BaseChartProps<NumberData>) {
+type Props = BaseChartProps<NumberData> & {
+  bucketSize: number;
+};
+
+export function DynamicNumberAnswerChart(props: Props) {
+  const { bucketSize } = props;
+
   const chartData = useChart<NumberData>({
     ...props,
+    orderByPercentage: false,
     aggregator: (rows) => {
-      const counts = _.countBy(rows);
-      return _.keys(counts).map((key) => ({
-        answerText: key,
-        count: counts[key],
-        percentage: Math.round((counts[key] / rows.length) * 100),
-      }));
+      const counts = _.countBy(rows.map((x) => Math.floor(x / bucketSize)));
+      return Object.entries(counts).map(([key, count], index, arr) => {
+        const x = Number(key) * bucketSize;
+        const y = index < arr.length - 1 ? ` - ${x + bucketSize}` : "+";
+        return {
+          answerText: `${x}${y}`,
+          count: count,
+          percentage: Math.round((count / rows.length) * 100),
+        };
+      });
     },
   });
 

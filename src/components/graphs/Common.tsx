@@ -52,6 +52,7 @@ export type UseChartDataProps<T extends ChartData<any>> = {
   direction?: ChartDirection;
   sectionTitle: string;
   aggregator: ChartAggregator<T["col"]>;
+  orderByPercentage?: boolean;
 };
 
 export function useChart<T extends ChartData<any>>(
@@ -80,6 +81,7 @@ export function useChart<T extends ChartData<any>>(
       title: props.sectionTitle,
     },
     chart: {
+      orderByPercentage: props.orderByPercentage,
       answerGroups: results,
     },
   };
