@@ -67,7 +67,7 @@ export default function Home() {
               />
 
               <DynamicAnswerChart
-                sectionTitle='Why do you use "Other" as a mod creator?'
+                sectionTitle="Why do you use the platform of choice as a mod creator?"
                 dataKey="platformsUseReasonAsModderCategory"
                 direction="horizontal"
               />
@@ -80,7 +80,7 @@ export default function Home() {
               />
 
               <DynamicAnswerChart
-                sectionTitle="Why do you use ___ as an end user?"
+                sectionTitle="Why do you use the platform of choice as an end user?"
                 dataKey="platformsUseReasonAsUserCategory"
                 direction="horizontal"
               />
