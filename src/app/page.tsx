@@ -19,6 +19,12 @@ import { DynamicAnswerChart } from "@/components/graphs/DynamicAnswerChart";
 import { DynamicNumberAnswerChart } from "@/components/graphs/DynamicNumberAnswerChart";
 import { Sidebar } from "@/components/Sidebar/Sidebar";
 
+const ChatGPT = (
+  <span style={{ color: "#f88965" }}>
+    Categorization was done by AI and might contain inaccuracies
+  </span>
+);
+
 export default function Home() {
   return (
     <DataContextProvider>
@@ -40,6 +46,7 @@ export default function Home() {
 
               <DynamicAnswerChart
                 sectionTitle="Why do you use the platform of choice as a mod creator?"
+                sectionDescription={ChatGPT}
                 dataKey="platformsUseReasonAsModderCategory"
               />
 
@@ -51,6 +58,7 @@ export default function Home() {
 
               <DynamicAnswerChart
                 sectionTitle="Why do you use the platform of choice as an end user?"
+                sectionDescription={ChatGPT}
                 dataKey="platformsUseReasonAsUserCategory"
               />
 
@@ -86,6 +94,7 @@ export default function Home() {
 
               <DynamicAnswerChart
                 sectionTitle='Responses for choosing "Other" for not supporting mod creators:'
+                sectionDescription={ChatGPT}
                 dataKey="reasonForNotWillingToDonateOtherCategory"
               />
 
@@ -97,6 +106,7 @@ export default function Home() {
 
               <DynamicAnswerChart
                 sectionTitle='Responses for choosing "Other" in creating mods as a profession:'
+                sectionDescription={ChatGPT}
                 dataKey="interstInModdingProfessionOtherCategory"
               />
 
@@ -122,6 +132,7 @@ export default function Home() {
 
               <DynamicAnswerChart
                 sectionTitle="When you consider purchasing a subscription, what is the main factor you base your decision on?"
+                sectionDescription={ChatGPT}
                 dataKey="subscriptionDecisionMainFactorCategory"
               />
 

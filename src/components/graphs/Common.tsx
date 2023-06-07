@@ -2,7 +2,7 @@ import { IsSet } from "@/utils";
 import { IDataEntry } from "@/data/types";
 import { KeyOfType } from "@/types";
 import { useDataContext } from "@/components/DataContext";
-import React, { useMemo } from "react";
+import React, { ReactNode, useMemo } from "react";
 import {
   Chart,
   ChartAnswerSet,
@@ -32,6 +32,7 @@ export type BaseChartProps<T extends ChartTypesAny> = {
   dataKey: T["key"];
   direction?: ChartDirection;
   sectionTitle: string;
+  sectionDescription?: ReactNode;
 };
 
 export type CategoryChartProps<T extends ChartTypesAny> = BaseChartProps<T> & {
@@ -51,6 +52,7 @@ export type UseChartDataProps<T extends ChartData<any>> = {
   dataKey: T["key"];
   direction?: ChartDirection;
   sectionTitle: string;
+  sectionDescription?: ReactNode;
   aggregator: ChartAggregator<T["col"]>;
   orderByPercentage?: boolean;
 };
@@ -79,6 +81,7 @@ export function useChart<T extends ChartData<any>>(
     section: {
       totalResponses: responseCount,
       title: props.sectionTitle,
+      description: props.sectionDescription,
     },
     chart: {
       orderByPercentage: props.orderByPercentage,
