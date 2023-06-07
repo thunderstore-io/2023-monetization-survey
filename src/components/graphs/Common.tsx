@@ -1,6 +1,15 @@
 import { IsSet } from "@/utils";
 import { IDataEntry } from "@/data/types";
 import { KeyOfType } from "@/types";
+import { useDataContext } from "@/components/DataContext";
+import React, { useMemo } from "react";
+import {
+  Chart,
+  ChartAnswerSet,
+  ChartDirection,
+  ChartProps,
+} from "@/components/Chart/Chart";
+import { Section, SectionProps } from "@/components/Section/Section";
 
 type BaseChartTypes<RowT, ColT, Key extends keyof RowT> = {
   row: RowT;
@@ -33,4 +42,57 @@ export function filterRows<T extends ChartTypesAny = never>(
   key: T["key"]
 ): T["col"][] {
   return rows.map((x) => x[key]).filter(IsSet);
+}
+
+export type ChartAggregator<TRow> = (rows: TRow[]) => ChartAnswerSet;
+
+export type UseChartDataProps<T extends ChartData<any>> = {
+  dataKey: T["key"];
+  direction: ChartDirection;
+  sectionTitle: string;
+  aggregator: ChartAggregator<T["col"]>;
+};
+
+export function useChart<T extends ChartData<any>>(
+  props: UseChartDataProps<T>
+): CommonChartProps {
+  const context = useDataContext();
+  const [responseCount, results] = useMemo(() => {
+    const values = filterRows<T>(context.rows, props.dataKey);
+    const results = props.aggregator(values);
+
+    return [
+      values.length,
+      [
+        {
+          direction: props.direction,
+          total: values.length,
+          answerSet: results,
+        },
+      ],
+    ];
+  }, [context.rows]);
+
+  return {
+    section: {
+      totalResponses: responseCount,
+      title: props.sectionTitle,
+    },
+    chart: {
+      answerGroups: results,
+    },
+  };
+}
+
+export type CommonChartProps = {
+  section: Omit<SectionProps, "children">;
+  chart: ChartProps;
+};
+
+export function CommonChart(props: CommonChartProps) {
+  return (
+    <Section {...props.section}>
+      <Chart {...props.chart} />
+    </Section>
+  );
 }

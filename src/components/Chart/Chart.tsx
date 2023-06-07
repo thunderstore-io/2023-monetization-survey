@@ -1,20 +1,23 @@
 import { CSSProperties, ReactNode } from "react";
 import styles from "./Chart.module.css";
 
-interface ChartProps {
+export type ChartDirection = "vertical" | "horizontal";
+export type ChartAnswerSet = {
+  answerText: string | number;
+  percentage: number;
+  count: number;
+}[];
+
+export type ChartProps = {
   answerGroups: {
     subQuestion?: string | number;
     total: number;
-    answerSet: {
-      answerText: string | number;
-      percentage: number;
-      count: number;
-    }[];
+    answerSet: ChartAnswerSet;
     direction: string | "vertical" | "horizontal";
   }[];
   orderByPercentage?: boolean;
   children?: ReactNode;
-}
+};
 
 interface CustomCSS extends CSSProperties {
   "--p": number;

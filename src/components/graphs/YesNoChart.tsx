@@ -1,13 +1,11 @@
 "use client";
 
-import React, { useMemo } from "react";
-import { useDataContext } from "@/components/DataContext";
-import { Chart } from "../Chart/Chart";
-import { Section } from "../Section/Section";
+import React from "react";
 import {
   BaseChartProps,
   ChartData,
-  filterRows,
+  CommonChart,
+  useChart,
 } from "@/components/graphs/Common";
 import _ from "lodash";
 
@@ -15,32 +13,21 @@ type BooleanData = ChartData<boolean>;
 type Aggregation = { false: number; true: number };
 
 export function YesNoChart(props: BaseChartProps<BooleanData>) {
-  const { dataKey } = props;
-  const context = useDataContext();
+  const chartData = useChart({
+    ...props,
+    aggregator: (rows) => {
+      const result: Aggregation = {
+        ...{ false: 0, true: 0 },
+        ..._.countBy(rows),
+      };
 
-  const data = useMemo(() => {
-    const rows = filterRows<BooleanData>(context.rows, dataKey);
-    const result: Aggregation = {
-      ...{ false: 0, true: 0 },
-      ..._.countBy(rows),
-    };
+      return Object.entries(result).map(([key, val]) => ({
+        answerText: key === "true" ? "Yes" : "No",
+        count: val,
+        percentage: Math.round((val / rows.length) * 100),
+      }));
+    },
+  });
 
-    return [
-      {
-        total: rows.length,
-        answerSet: Object.entries(result).map(([key, val]) => ({
-          answerText: key === "true" ? "Yes" : "No",
-          count: val,
-          percentage: Math.round((val / rows.length) * 100),
-        })),
-        direction: props.direction,
-      },
-    ];
-  }, [context.rows]);
-
-  return (
-    <Section title={props.sectionTitle} totalResponses={data[0].total}>
-      <Chart answerGroups={data}></Chart>
-    </Section>
-  );
+  return <CommonChart {...chartData} />;
 }

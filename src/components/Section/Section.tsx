@@ -1,11 +1,11 @@
 import styles from "./Section.module.css";
 import { ReactNode } from "react";
 
-interface SectionProps {
+export type SectionProps = {
   title: string;
   totalResponses: number;
   children: ReactNode[] | ReactNode;
-}
+};
 
 export function Section(props: SectionProps) {
   const { title, totalResponses, children } = props;
