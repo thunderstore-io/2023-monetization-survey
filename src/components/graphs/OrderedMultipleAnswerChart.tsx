@@ -3,19 +3,21 @@
 import React, { useMemo } from "react";
 import { useDataContext } from "@/components/DataContext";
 import { Chart } from "../Chart/Chart";
-import { IDataEntry } from "@/data/types";
 import { Section } from "../Section/Section";
 import _ from "lodash";
-import { BaseChartProps } from "@/components/graphs/Common";
-import { NotUnset } from "@/utils";
+import {
+  BaseChartProps,
+  CategoryData,
+  filterRows,
+} from "@/components/graphs/Common";
 
 export function OrderedMultipleAnswerChart(
-  props: BaseChartProps<IDataEntry, string[]>
+  props: BaseChartProps<CategoryData>
 ) {
   const { dataKey, direction, sectionTitle } = props;
   const context = useDataContext();
   const data = useMemo(() => {
-    const rows = context.rows.map((x) => x[dataKey]).filter(NotUnset);
+    const rows = filterRows<CategoryData>(context.rows, dataKey);
     const features = rows[0];
     if (!features) return [];
 

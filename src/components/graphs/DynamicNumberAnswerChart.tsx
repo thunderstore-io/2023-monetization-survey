@@ -3,20 +3,22 @@
 import React, { useMemo } from "react";
 import { useDataContext } from "@/components/DataContext";
 import { Chart } from "../Chart/Chart";
-import { IDataEntry } from "@/data/types";
 import { Section } from "../Section/Section";
 import _ from "lodash";
-import { BaseChartProps } from "@/components/graphs/Common";
-import { NotUnset } from "@/utils";
+import {
+  BaseChartProps,
+  ChartData,
+  filterRows,
+} from "@/components/graphs/Common";
 
-export function DynamicNumberAnswerChart(
-  props: BaseChartProps<IDataEntry, number>
-) {
+type NumberData = ChartData<number>;
+
+export function DynamicNumberAnswerChart(props: BaseChartProps<NumberData>) {
   const { dataKey, direction, sectionTitle } = props;
 
   const context = useDataContext();
   const data = useMemo(() => {
-    const values = context.rows.map((x) => x[dataKey]).filter(NotUnset);
+    const values = filterRows<NumberData>(context.rows, dataKey);
     const counts = _.countBy(values);
 
     return [
@@ -32,13 +34,9 @@ export function DynamicNumberAnswerChart(
     ];
   }, [context.rows]);
 
-  if (sectionTitle) {
-    return (
-      <Section title={sectionTitle} totalResponses={data[0].total}>
-        <Chart answerGroups={data}></Chart>
-      </Section>
-    );
-  } else {
-    return <Chart answerGroups={data}></Chart>;
-  }
+  return (
+    <Section title={sectionTitle} totalResponses={data[0].total}>
+      <Chart answerGroups={data}></Chart>
+    </Section>
+  );
 }

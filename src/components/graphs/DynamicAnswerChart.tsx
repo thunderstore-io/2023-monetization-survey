@@ -3,19 +3,22 @@
 import React, { useMemo } from "react";
 import { useDataContext } from "@/components/DataContext";
 import { Chart } from "../Chart/Chart";
-import { DynamicCategory, IDataEntry } from "@/data/types";
+import { DynamicCategory } from "@/data/types";
 import { Section } from "../Section/Section";
-import { BaseChartProps } from "@/components/graphs/Common";
-import { NotUnset } from "@/utils";
+import {
+  BaseChartProps,
+  ChartData,
+  filterRows,
+} from "@/components/graphs/Common";
 
-export function DynamicAnswerChart(
-  props: BaseChartProps<IDataEntry, DynamicCategory[]>
-) {
+type DynamicCategoryData = ChartData<DynamicCategory[]>;
+
+export function DynamicAnswerChart(props: BaseChartProps<DynamicCategoryData>) {
   const { dataKey, direction, sectionTitle } = props;
   const context = useDataContext();
 
   const data = useMemo(() => {
-    const rows = context.rows.map((x) => x[dataKey]).filter(NotUnset);
+    const rows = filterRows<DynamicCategoryData>(context.rows, dataKey);
 
     const result: {
       [key: string]: { description: string; count: number };
