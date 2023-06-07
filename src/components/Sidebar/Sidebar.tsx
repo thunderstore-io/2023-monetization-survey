@@ -5,6 +5,10 @@ import { FilterSet } from "@/components/FilterSet/FilterSet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSliders, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import getConfig from "next/config";
+
+const { publicRuntimeConfig } = getConfig();
+const resultsLink = `${publicRuntimeConfig.assetPrefix || ""}/results.json`;
 
 export const Sidebar = () => {
   const [sidebarActive, toggleSidebar] = useState(false);
@@ -15,7 +19,7 @@ export const Sidebar = () => {
     >
       <ul className={styles.links}>
         <li className={styles.link}>
-          <a href="/results.json">Download raw data</a>
+          <a href={resultsLink}>Download raw data</a>
         </li>
         <li className={styles.link}>
           <a
