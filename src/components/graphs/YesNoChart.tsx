@@ -5,20 +5,20 @@ import {
   BaseChartProps,
   ChartData,
   CommonChart,
+  initializeCounters,
   useChart,
 } from "@/components/graphs/Common";
 import _ from "lodash";
 
 type BooleanData = ChartData<boolean>;
-type Aggregation = { false: number; true: number };
 
 export function YesNoChart(props: BaseChartProps<BooleanData>) {
   const chartData = useChart({
     ...props,
     aggregator: (rows) => {
-      const result: Aggregation = {
-        ...{ false: 0, true: 0 },
-        ..._.countBy(rows),
+      const result = {
+        ...initializeCounters(["false", "true"]),
+        ..._.countBy(_.flatMap(rows)),
       };
 
       return Object.entries(result).map(([key, val]) => ({

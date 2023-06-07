@@ -6,6 +6,7 @@ import {
   CategoryChartProps,
   CategoryData,
   CommonChart,
+  initializeCounters,
   useChart,
 } from "@/components/graphs/Common";
 
@@ -14,11 +15,7 @@ export function MultipleAnswerChart(props: CategoryChartProps<CategoryData>) {
     ...props,
     aggregator: (rows) => {
       const aggregate = {
-        ..._.transform(
-          props.categories,
-          (res, val) => (res[val] = 0),
-          {} as { [k: string]: number }
-        ),
+        ...initializeCounters(props.categories),
         ..._.countBy(_.flatMap(rows)),
       };
 

@@ -10,6 +10,7 @@ import {
   ChartProps,
 } from "@/components/Chart/Chart";
 import { Section, SectionProps } from "@/components/Section/Section";
+import _ from "lodash";
 
 type BaseChartTypes<RowT, ColT, Key extends keyof RowT> = {
   row: RowT;
@@ -82,6 +83,16 @@ export function useChart<T extends ChartData<any>>(
       answerGroups: results,
     },
   };
+}
+
+export function initializeCounters(
+  categories: string[] | { [key: string]: string }
+) {
+  return _.transform(
+    categories,
+    (res, val) => (res[val as string] = 0),
+    {} as { [k: string]: number }
+  );
 }
 
 export type CommonChartProps = {

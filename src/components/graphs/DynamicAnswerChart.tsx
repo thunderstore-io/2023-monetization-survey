@@ -6,36 +6,29 @@ import {
   BaseChartProps,
   ChartData,
   CommonChart,
+  initializeCounters,
   useChart,
 } from "@/components/graphs/Common";
+import _ from "lodash";
+import { useDataContext } from "@/components/DataContext";
 
 type DynamicCategoryData = ChartData<DynamicCategory[]>;
 
 export function DynamicAnswerChart(props: BaseChartProps<DynamicCategoryData>) {
+  const categories = useDataContext().categories[props.dataKey];
+
   const chartData = useChart<DynamicCategoryData>({
     ...props,
     aggregator: (rows) => {
-      const result: {
-        [key: string]: { description: string; count: number };
-      } = {};
+      const aggregate = {
+        ...initializeCounters(Object.keys(categories)),
+        ..._.countBy(_.flatMap(rows), "id"),
+      };
 
-      for (const row of rows) {
-        for (const categoryEntry of row) {
-          if (!result[categoryEntry.id]) {
-            result[categoryEntry.id] = {
-              description: categoryEntry.description,
-              count: 1,
-            };
-          } else {
-            result[categoryEntry.id].count += 1;
-          }
-        }
-      }
-
-      return Object.keys(result).map((k) => ({
-        answerText: result[k].description,
-        count: result[k].count,
-        percentage: Math.round((result[k].count / rows.length) * 100),
+      return Object.entries(aggregate).map(([id, count]) => ({
+        answerText: categories[id] || id,
+        count: count,
+        percentage: Math.round((count / rows.length) * 100),
       }));
     },
   });
