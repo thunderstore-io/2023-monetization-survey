@@ -5,7 +5,6 @@ import { FilterSet } from "@/components/FilterSet/FilterSet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSliders, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import Link from "next/link";
 
 export const Sidebar = () => {
   const [sidebarActive, toggleSidebar] = useState(false);
@@ -16,15 +15,16 @@ export const Sidebar = () => {
     >
       <ul className={styles.links}>
         <li className={styles.link}>
-          <Link href="/results.json">Download raw data</Link>
+          <a href="/results.json">Download raw data</a>
         </li>
         <li className={styles.link}>
-          <Link
+          <a
             href="https://github.com/thunderstore-io/2023-monetization-survey"
             target="_blank"
+            rel="noreferrer"
           >
             View source on GitHub
-          </Link>
+          </a>
         </li>
       </ul>
       <h3>Filters</h3>
