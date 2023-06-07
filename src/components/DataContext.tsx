@@ -1,3 +1,5 @@
+"use client";
+
 import React, { PropsWithChildren } from "react";
 import { AgeGroup, IDataEntry } from "@/data/types";
 import { loadData } from "@/data/load";

@@ -30,7 +30,7 @@ export type CategoryData = ChartData<string[]>;
 
 export type BaseChartProps<T extends ChartTypesAny> = {
   dataKey: T["key"];
-  direction: "vertical" | "horizontal";
+  direction?: ChartDirection;
   sectionTitle: string;
 };
 
@@ -49,7 +49,7 @@ export type ChartAggregator<TRow> = (rows: TRow[]) => ChartAnswerSet;
 
 export type UseChartDataProps<T extends ChartData<any>> = {
   dataKey: T["key"];
-  direction: ChartDirection;
+  direction?: ChartDirection;
   sectionTitle: string;
   aggregator: ChartAggregator<T["col"]>;
 };

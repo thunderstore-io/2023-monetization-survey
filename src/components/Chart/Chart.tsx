@@ -13,7 +13,7 @@ export type ChartProps = {
     subQuestion?: string | number;
     total: number;
     answerSet: ChartAnswerSet;
-    direction: string | "vertical" | "horizontal";
+    direction?: "vertical" | "horizontal";
   }[];
   orderByPercentage?: boolean;
   children?: ReactNode;
@@ -30,10 +30,10 @@ export function Chart(props: ChartProps) {
       {Object.keys(answerGroups).map((groupK, groupID) => (
         <div
           key={groupK}
-          className={`${styles["root"]} ${
+          className={`${styles.root} ${
             answerGroups[groupID].direction === "vertical"
-              ? styles["vertical"]
-              : styles["horizontal"]
+              ? styles.vertical
+              : styles.horizontal
           }`}
         >
           <div className={styles.subquestion}>
