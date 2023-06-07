@@ -10,6 +10,7 @@ export enum IsModderFilter {
 
 export type IDataContext = {
   rows: IDataEntry[];
+  categories: { [key: string]: { [key: string]: string } };
 
   setAgeGroupFilter: (val: AgeGroup[]) => void;
   ageGroupFilter: AgeGroup[];
@@ -29,9 +30,10 @@ export const DataContextProvider: React.FC<PropsWithChildren> = (props) => {
   const [isModderFilter, setIsModderFilter] = React.useState<IsModderFilter>(
     IsModderFilter.ALL
   );
-  const rawData = React.useMemo<IDataEntry[]>(() => {
+  const { entries: rawData, categories } = React.useMemo(() => {
     return loadData();
   }, []);
+
   const filteredData = React.useMemo<IDataEntry[]>(() => {
     return rawData.filter((x) => {
       return (
@@ -45,6 +47,7 @@ export const DataContextProvider: React.FC<PropsWithChildren> = (props) => {
 
   const context: IDataContext = {
     rows: filteredData,
+    categories,
     setAgeGroupFilter,
     ageGroupFilter,
     setIsModderFilter,
@@ -60,6 +63,7 @@ export const DataContextProvider: React.FC<PropsWithChildren> = (props) => {
 
 export const DataContext = React.createContext<IDataContext>({
   rows: [],
+  categories: {},
   setAgeGroupFilter: () => undefined,
   ageGroupFilter: [
     AgeGroup._13_18,

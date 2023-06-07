@@ -164,6 +164,12 @@ export function loadDummyData(count: number): IDataEntry[] {
     .map(() => generateRandomEntry());
 }
 
-export function loadData(): IDataEntry[] {
-  return results["entries"] as any as IDataEntry[];
+export function loadData(): {
+  entries: IDataEntry[];
+  categories: { [key: string]: { [key: string]: string } };
+} {
+  return {
+    entries: results["entries"] as any as IDataEntry[],
+    categories: results["categories"],
+  };
 }
