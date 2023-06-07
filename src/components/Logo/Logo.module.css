@@ -1,11 +1,9 @@
-.logomark {}
-
 .wordmark {
-  display:none;
+  display: none;
 }
 
-@media (min-width:60rem) {
+@media (min-width: 60rem) {
   .wordmark {
-    display:initial;
+    display: initial;
   }
 }

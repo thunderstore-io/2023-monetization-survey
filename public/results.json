@@ -64541,5 +64541,54 @@
       "subscriptionConsiderationWillingness": true,
       "ageGroup": "19-25"
     }
-  ]
+  ],
+  "categories": {
+    "platformsUseReasonAsModderCategory": {
+      "ease-of-use": "Responses highlighting ease of use as a reason for selecting a platform.",
+      "popularity": "Responses mentioning the popularity of the platform as a reason for selecting it.",
+      "game-specific": "Responses focused on the platform being widely used or natively supported for a specific game.",
+      "community-features": "Responses mentioning features related to user engagement, interaction, or overall community quality.",
+      "mod-distribution": "Responses related to mod distribution methods, such as centralized locations or integration with particular programs.",
+      "accessibility-convenience": "Responses mentioning ease of access, user experience, or convenience as factors for selecting certain platforms.",
+      "unknown": "Responses that don't answer the question appropriately, e.g. spam or hard to interpret responses."
+    },
+    "platformsUseReasonAsUserCategory": {
+      "modularity-and-customization": "Enjoy customizing games to cater to personal interests and preferences.",
+      "popularity-of-platforms": "Choose platforms based on popularity, which can indicate the number and variety of mods available.",
+      "ease-of-use": "Platforms are simple to use, have easy installation or update processes, and provide good user experience.",
+      "community-support": "Active communities with a focus on safety, user engagement, and willingness to enforce rules.",
+      "game-specific": "Platforms that cater to specific games or are known for having mods for certain games.",
+      "reliability": "Trusted platforms with a low rate of file tampering, quality mods, and up-to-date content.",
+      "forced-choices": "Sometimes required to use certain platforms based on where mod developers choose to upload mods.",
+      "policy-positions": "Appreciate platforms that take a stance on certain issues, such as prohibiting hate speech.",
+      "unknown": "Responses that don't answer the question appropriately, e.g. spam or hard to interpret responses."
+    },
+    "reasonForNotWillingToDonateOtherCategory": {
+      "monetary-morality": "Responses related to individuals' personal beliefs on monetizing mod content",
+      "lack-of-valid-reason": "Responses stating that there is no valid reason to donate to mod creators",
+      "negative-community-impact": "Responses highlighting potential negative effects on the modding community due to monetization",
+      "payment-platform-limitations": "Responses pointing out limitations in available payment methods and platforms",
+      "unknown": "Responses that don't answer the question appropriately, e.g. spam or hard to interpret responses"
+    },
+    "interstInModdingProfessionOtherCategory": {
+      "yes": "Positive responses indicating a desire to create mods as a profession.",
+      "no": "Negative responses indicating no desire to create mods as a profession.",
+      "maybe": "Responses indicating uncertainty or conditionally open to the idea of creating mods as a profession.",
+      "donation-based": "Responses that suggest a preference for a donation or support-based revenue model.",
+      "freely-distributed": "Responses indicating a preference for distributing mods freely to the public.",
+      "unknown": "Responses that don't answer the question appropriately, e.g. spam or hard to interpret responses."
+    },
+    "subscriptionDecisionMainFactorCategory": {
+      "financial-considerations": "Price, cost-benefit analysis, affordability, and value for money, including comparisons to existing expenses such as university expenses, minimum wage, gas, and other subscriptions",
+      "content-quality-quantity": "Quality, quantity, usefulness, and range of content or mods available",
+      "platform-reputation": "Reputation and history of the platform, including user/browse experience, scams or controversies, and treatment of users",
+      "support-platform-mod-creators": "Support provided to the platform, mod creators, or modding community",
+      "added-benefits": "Novel, unique, or compelling benefits offered by the subscription, such as increased download speed, no ads, bonus features, access to exclusive content, or voting on mod ideas",
+      "usage-frequency": "Frequency of use of the platform or mods, and how that impacts the subscription decision",
+      "payment-methods": "Availability or preference of specific payment methods, such as PayPal",
+      "subscription-aversion": "Aversion to subscriptions or subscription-based business models, including preferences for free or one-time payment models",
+      "regional": "Responses that mention regional factors, such as currency exchange rates, as an influencing factor.",
+      "unknown": "Responses that don't answer the question appropriately, e.g. spam or hard to interpret responses"
+    }
+  }
 }

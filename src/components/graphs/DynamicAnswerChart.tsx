@@ -1,64 +1,37 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React from "react";
+import { DynamicCategory } from "@/data/types";
+import {
+  BaseChartProps,
+  ChartData,
+  CommonChart,
+  initializeCounters,
+  useChart,
+} from "@/components/graphs/Common";
+import _ from "lodash";
 import { useDataContext } from "@/components/DataContext";
-import { Chart } from "../Chart/Chart";
-import { IDataEntry } from "@/data/types";
-import { Section } from "../Section/Section";
 
-interface DynamicAnswerChartProps {
-  dataKey: keyof IDataEntry;
-  direction?: string | "vertical" | "horizontal";
-  sectionTitle?: string;
-}
+type DynamicCategoryData = ChartData<DynamicCategory[]>;
 
-export function DynamicAnswerChart(props: DynamicAnswerChartProps) {
-  const {
-    ["dataKey"]: dataKey,
-    ["direction"]: direction,
-    ["sectionTitle"]: sectionTitle,
-  } = props;
-  const context = useDataContext();
-  const data = useMemo(() => {
-    const result: {
-      [key: string]: { description: string; count: number };
-    } = {};
-    let total = 0;
-    for (const entry of context.rows) {
-      if (!entry[dataKey]) continue;
-      for (const categoryEntry of entry[dataKey]) {
-        if (!result[categoryEntry.id]) {
-          result[categoryEntry.id] = {
-            description: categoryEntry.description,
-            count: 1,
-          };
-        } else {
-          result[categoryEntry.id].count += 1;
-        }
-      }
-      total += 1;
-    }
+export function DynamicAnswerChart(props: BaseChartProps<DynamicCategoryData>) {
+  const categories = useDataContext().categories[props.dataKey];
 
-    return [
-      {
-        direction: direction,
-        total: total,
-        answerSet: Object.keys(result).map((k) => ({
-          answerText: result[k].description,
-          count: result[k].count,
-          percentage: Math.round((result[k].count / total) * 100),
-        })),
-      },
-    ];
-  }, [context.rows]);
+  const chartData = useChart<DynamicCategoryData>({
+    ...props,
+    aggregator: (rows) => {
+      const aggregate = {
+        ...initializeCounters(Object.keys(categories)),
+        ..._.countBy(_.flatMap(rows), "id"),
+      };
 
-  if (sectionTitle) {
-    return (
-      <Section title={sectionTitle} totalResponses={data[0].total}>
-        <Chart answerGroups={data}></Chart>
-      </Section>
-    );
-  } else {
-    return <Chart answerGroups={data}></Chart>;
-  }
+      return Object.entries(aggregate).map(([id, count]) => ({
+        answerText: categories[id] || id,
+        count: count,
+        percentage: Math.round((count / rows.length) * 100),
+      }));
+    },
+  });
+
+  return <CommonChart {...chartData} />;
 }

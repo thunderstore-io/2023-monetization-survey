@@ -1,52 +1,33 @@
 "use client";
 
-import React, { useMemo } from "react";
-import { useDataContext } from "@/components/DataContext";
-import { Chart } from "../Chart/Chart";
-import { Section } from "../Section/Section";
+import React from "react";
+import {
+  BaseChartProps,
+  ChartData,
+  CommonChart,
+  initializeCounters,
+  useChart,
+} from "@/components/graphs/Common";
+import _ from "lodash";
 
-interface YesNoChartProps {
-  dataKey: string;
-  sectionTitle?: string;
-}
+type BooleanData = ChartData<boolean>;
 
-export function YesNoChart(props: YesNoChartProps) {
-  const context = useDataContext();
-  const data = useMemo(() => {
-    let total = 0;
-    const result: { [key: string]: { count: number } } = {
-      yes: { count: 0 },
-      no: { count: 0 },
-    };
-    for (const entry of context.rows) {
-      if (entry[props.dataKey]) {
-        result["yes"].count += 1;
-      } else {
-        result["no"].count += 1;
-      }
-      total += 1;
-    }
+export function YesNoChart(props: BaseChartProps<BooleanData>) {
+  const chartData = useChart({
+    ...props,
+    aggregator: (rows) => {
+      const result = {
+        ...initializeCounters(["false", "true"]),
+        ..._.countBy(_.flatMap(rows)),
+      };
 
-    return [
-      {
-        total: total,
-        answerSet: Object.keys(result).map((k) => ({
-          answerText: k === "yes" ? "Yes" : "No",
-          count: result[k].count,
-          percentage: Math.round((result[k].count / total) * 100),
-        })),
-        direction: "horizontal",
-      },
-    ];
-  }, [context.rows]);
+      return Object.entries(result).map(([key, val]) => ({
+        answerText: key === "true" ? "Yes" : "No",
+        count: val,
+        percentage: Math.round((val / rows.length) * 100),
+      }));
+    },
+  });
 
-  if (props.sectionTitle) {
-    return (
-      <Section title={props.sectionTitle} totalResponses={data[0].total}>
-        <Chart answerGroups={data}></Chart>
-      </Section>
-    );
-  } else {
-    return <Chart answerGroups={data}></Chart>;
-  }
+  return <CommonChart {...chartData} />;
 }

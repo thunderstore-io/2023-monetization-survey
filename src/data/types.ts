@@ -78,7 +78,7 @@ export type IDataEntry = {
   /**
    * Are you a mod creator?
    */
-  isModder: boolean;
+  isModder?: boolean;
 
   /**
    * Which platforms do you use as a mod creator?

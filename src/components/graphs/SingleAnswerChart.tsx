@@ -1,57 +1,33 @@
 "use client";
 
-import React, { useMemo } from "react";
-import { useDataContext } from "@/components/DataContext";
-import { Chart } from "../Chart/Chart";
-import { IDataEntry } from "@/data/types";
-import { Section } from "../Section/Section";
+import React from "react";
+import _ from "lodash";
+import {
+  CategoryChartProps,
+  ChartData,
+  CommonChart,
+  initializeCounters,
+  useChart,
+} from "@/components/graphs/Common";
 
-interface SingleAnswerChartProps {
-  dataKey: keyof IDataEntry;
-  direction?: string | "vertical" | "horizontal";
-  sectionTitle?: string;
-}
+type StringData = ChartData<string>;
 
-export function SingleAnswerChart(props: SingleAnswerChartProps) {
-  const {
-    ["dataKey"]: dataKey,
-    ["direction"]: direction,
-    ["sectionTitle"]: sectionTitle,
-    ...newProps
-  } = props;
-  const context = useDataContext();
-  const data = useMemo(() => {
-    const result: {
-      [key: string]: { count: number };
-    } = {};
-    Object.keys(newProps).map((k) => (result[newProps[k]] = { count: 0 }));
-    let total = 0;
-    for (const entry of context.rows) {
-      if (!entry[dataKey]) continue;
-      result[entry[dataKey]].count += 1;
-      total += 1;
-    }
+export function SingleAnswerChart(props: CategoryChartProps<StringData>) {
+  const chartData = useChart<StringData>({
+    ...props,
+    aggregator: (rows) => {
+      const counts = {
+        ...initializeCounters(props.categories),
+        ..._.countBy(_.flatMap(rows)),
+      };
 
-    return [
-      {
-        direction: direction,
-        total: total,
-        answerSet: Object.keys(result).map((k) => ({
-          answerText: k,
-          count: result[k].count,
-          percentage: Math.round((result[k].count / total) * 100),
-        })),
-      },
-    ];
-  }, [context.rows]);
+      return _.keys(counts).map((key) => ({
+        answerText: key,
+        count: counts[key],
+        percentage: Math.round((counts[key] / rows.length) * 100),
+      }));
+    },
+  });
 
-  if (sectionTitle) {
-    return (
-      <Section title={sectionTitle} totalResponses={data[0].total}>
-        <Chart answerGroups={data}></Chart>
-      </Section>
-    );
-  } else {
-    return <Chart answerGroups={data}></Chart>;
-  }
+  return <CommonChart {...chartData} />;
 }

@@ -1,5 +1,6 @@
 import { Logo } from "@/components/Logo/Logo";
 import styles from "./Header.module.css";
+import React from "react";
 
 export const Header: React.FC = () => {
   return (
@@ -10,13 +11,6 @@ export const Header: React.FC = () => {
       <div className={styles.header__title}>
         Modding platform monetization questionnaire 2023
       </div>
-
-      {/* Alt filter toggle button */}
-      {/*<div className={styles.header__actions}>
-        <button className={styles.header__toggle}>
-          Filters
-        </button>
-      </div>*/}
     </header>
   );
 };

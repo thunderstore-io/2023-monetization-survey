@@ -1,58 +1,39 @@
 "use client";
 
-import React, { useMemo } from "react";
-import { useDataContext } from "@/components/DataContext";
-import { Chart } from "../Chart/Chart";
-import { IDataEntry } from "@/data/types";
-import { Section } from "../Section/Section";
+import React from "react";
+import _ from "lodash";
+import {
+  BaseChartProps,
+  ChartData,
+  CommonChart,
+  useChart,
+} from "@/components/graphs/Common";
 
-interface DynamicNumberAnswerChartProps {
-  dataKey: keyof IDataEntry;
-  direction?: string | "vertical" | "horizontal";
-  sectionTitle?: string;
-}
+type NumberData = ChartData<number>;
 
-export function DynamicNumberAnswerChart(props: DynamicNumberAnswerChartProps) {
-  const {
-    ["dataKey"]: dataKey,
-    ["direction"]: direction,
-    ["sectionTitle"]: sectionTitle,
-  } = props;
-  const context = useDataContext();
-  const data = useMemo(() => {
-    const result: {
-      [key: number]: { count: number };
-    } = {};
-    let total = 0;
-    for (const entry of context.rows) {
-      if (!entry[dataKey]) continue;
-      if (!result[entry[dataKey]]) {
-        result[entry[dataKey]] = 1;
-      } else {
-        result[entry[dataKey]] += 1;
-      }
-      total += 1;
-    }
-    return [
-      {
-        direction: direction,
-        total: total,
-        answerSet: Object.keys(result).map((k) => ({
-          answerText: k,
-          count: result[k],
-          percentage: Math.round((result[k] / total) * 100),
-        })),
-      },
-    ];
-  }, [context.rows]);
+type Props = BaseChartProps<NumberData> & {
+  bucketSize: number;
+};
 
-  if (sectionTitle) {
-    return (
-      <Section title={sectionTitle} totalResponses={data[0].total}>
-        <Chart answerGroups={data}></Chart>
-      </Section>
-    );
-  } else {
-    return <Chart answerGroups={data}></Chart>;
-  }
+export function DynamicNumberAnswerChart(props: Props) {
+  const { bucketSize } = props;
+
+  const chartData = useChart<NumberData>({
+    ...props,
+    orderByPercentage: false,
+    aggregator: (rows) => {
+      const counts = _.countBy(rows.map((x) => Math.floor(x / bucketSize)));
+      return Object.entries(counts).map(([key, count], index, arr) => {
+        const x = Number(key) * bucketSize;
+        const y = index < arr.length - 1 ? ` - ${x + bucketSize}` : "+";
+        return {
+          answerText: `${x}${y}`,
+          count: count,
+          percentage: Math.round((count / rows.length) * 100),
+        };
+      });
+    },
+  });
+
+  return <CommonChart {...chartData} />;
 }
