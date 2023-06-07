@@ -18,8 +18,6 @@ import { OrderedMultipleAnswerChart } from "@/components/graphs/OrderedMultipleA
 import { DynamicAnswerChart } from "@/components/graphs/DynamicAnswerChart";
 import { DynamicNumberAnswerChart } from "@/components/graphs/DynamicNumberAnswerChart";
 import { Sidebar } from "@/components/Sidebar/Sidebar";
-import Head from "next/head";
-import { assetPrefix } from "@/utils";
 
 const ChatGPT = (
   <span style={{ color: "#f88965" }}>
@@ -30,9 +28,6 @@ const ChatGPT = (
 export default function Home() {
   return (
     <>
-      <Head>
-        <link rel="icon" href={`${assetPrefix}/favicon.ico`} sizes="any" />
-      </Head>
       <DataContextProvider>
         <div className={styles.content}>
           <Sidebar />
